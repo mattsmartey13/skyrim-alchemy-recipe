@@ -1,7 +1,11 @@
+package application;
+
 import controller.AlchemyController;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import model.Player;
+import view.AlchemyRootPane;
 
 public class ApplicationLoader extends Application {
 
