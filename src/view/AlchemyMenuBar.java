@@ -12,9 +12,7 @@ public class AlchemyMenuBar extends MenuBar {
     private MenuItem aboutItem, exitItem, resetItem;
 
     public AlchemyMenuBar() {
-
         //basis for menu bar - add more as required
-
         Menu alchemyMenu;
 
         alchemyMenu = new Menu("_File");

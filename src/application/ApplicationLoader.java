@@ -24,15 +24,13 @@ public class ApplicationLoader extends Application {
         stage.setMinWidth(640);
         stage.setMinHeight(770);
 
-        stage.setTitle("Final Year Module Selection Tool");
+        stage.setTitle("Skyrim Alchemy Recipe Calculator");
         stage.setScene(new Scene(view));
         stage.sizeToScene();
         stage.show();
-
     }
 
     public static void main(String[] args) {
         launch(args);
     }
-
 }
