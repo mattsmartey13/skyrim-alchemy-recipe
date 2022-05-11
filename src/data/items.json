@@ -1,0 +1,16 @@
+{
+  items: [
+    {
+      name: "Headgear"
+    },
+    {
+      name: "Gloves"
+    },
+    {
+      name: "Necklace"
+    },
+    {
+      name: "Ring"
+    }
+  ]
+}
