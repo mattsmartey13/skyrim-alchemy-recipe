@@ -1,0 +1,54 @@
+{
+  perks: [
+    {
+      name: "Alchemist 1",
+      hash: "000be127",
+      multiplier: 1.2,
+    },
+    {
+      name: "Alchemist 2",
+      hash: "000c07ca",
+      multiplier: 1.4,
+    },
+    {
+      name: "Alchemist 3",
+      hash: "000c07cb",
+      multiplier: 1.6
+    },
+    {
+      name: "Alchemist 4",
+      hash: "000c07cc",
+      multiplier: 1.8,
+    },
+    {
+      name: "Alchemist 5",
+      hash: "000c07cd",
+      multiplier: 2.0
+    },
+    {
+      name: "Physician",
+      hash: "00058215",
+      multiplier: 1.25,
+    },
+    {
+      name: "Benefactor",
+      hash: "00058216",
+      multiplier: 1.25
+    },
+    {
+      name: "Poisoner",
+      hash: "00058217",
+      multiplier: 1.25,
+    },
+    {
+      name: "Purity",
+      hash: "00058217",
+      multiplier: 0.0
+    },
+    {
+      name: "Seeker of Shadows",
+      hash: "xx034838",
+      multiplier: 1.1
+    }
+  ]
+}

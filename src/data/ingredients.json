@@ -1,0 +1,641 @@
+{
+  "ingredients": [
+    {
+      "name": "Abecean Longfin",
+      "effects": ["0003AC2E", "0003EB22", "00090042", "0003EB28"],
+      "image": "http://www.uesp.net/w/images/thumb/7/7a/SR-icon-ingredient-Abecean_Longfin.png/48px-SR-icon-ingredient-Abecean_Longfin.png",
+      "value": 15,
+      "weight": 0.5
+    },
+    {
+      "name": "Bear Claws",
+      "effects": ["0003EB16", "0003EAF3", "0003EB19", "00073F2B"],
+      "image": "http://www.uesp.net/w/images/thumb/0/04/SR-icon-ingredient-Bear_Claws.png/48px-SR-icon-ingredient-Bear_Claws.png",
+      "value": 2,
+      "weight": 0.1
+    },
+    {
+      "name": "Bee",
+      "effects": ["0003EB16", "00073F23", "0003EB08", "00073F2F"],
+      "image": "http://www.uesp.net/w/images/thumb/b/b8/SR-icon-ingredient-Bee.png/48px-SR-icon-ingredient-Bee.png",
+      "value": 3,
+      "weight": 0.1
+    },
+    {
+      "name": "Beehive Husk",
+      "effects": ["00090041", "0003EB1F", "0003EB22", "0003EB26"],
+      "image": "http://www.uesp.net/w/images/thumb/8/84/SR-icon-ingredient-Beehive_Husk.png/48px-SR-icon-ingredient-Beehive_Husk.png",
+      "value": 5,
+      "weight": 1.0
+    },
+    {
+      "name": "Bleeding Crown",
+      "effects": ["00073F2D", "0003EB1C", "00090042", "00039E51"],
+      "image": "http://www.uesp.net/w/images/thumb/a/a6/SR-icon-ingredient-Bleeding_Crown.png/48px-SR-icon-ingredient-Bleeding_Crown.png",
+      "value": 10,
+      "weight": 0.3
+    },
+    {
+      "name": "Blisterwort",
+      "effects": ["0003A2C6", "00073F29", "0003EB15", "0003EB1D"],
+      "image": "http://www.uesp.net/w/images/thumb/2/2b/SR-icon-ingredient-Blisterwort.png/48px-SR-icon-ingredient-Blisterwort.png",
+      "value": 12,
+      "weight": 0.2
+    },
+    {
+      "name": "Blue Butterfly Wing",
+      "effects": ["0003A2C6", "0003EB25", "00073F2B", "0003EB29"],
+      "image": "http://www.uesp.net/w/images/thumb/1/16/SR-icon-ingredient-Blue_Butterfly_Wing.png/48px-SR-icon-ingredient-Blue_Butterfly_Wing.png",
+      "value": 2,
+      "weight": 0.1
+    },
+    {
+      "name": "Blue Dartwing",
+      "effects": ["0003EAEC", "0003EB20", "0003EB15", "00073F20"],
+      "image": "http://www.uesp.net/w/images/thumb/e/ee/SR-icon-ingredient-Blue_Dartwing.png/48px-SR-icon-ingredient-Blue_Dartwing.png",
+      "value": 1,
+      "weight": 0.1
+    },
+    {
+      "name": "Blue Mountain Flower",
+      "effects": ["0003EB15", "0003EB25", "0003EAF3", "00073F2B"],
+      "image": "http://www.uesp.net/w/images/thumb/3/38/SR-icon-ingredient-Blue_Mountain_Flower.png/48px-SR-icon-ingredient-Blue_Mountain_Flower.png",
+      "value": 2,
+      "weight": 0.1
+    },
+    {
+      "name": "Bone Meal",
+      "effects": ["0003A2C6", "0003EAEA", "0003EB25", "00073F23"],
+      "image": "http://www.uesp.net/w/images/thumb/f/f9/SR-icon-ingredient-Bone_Meal.png/48px-SR-icon-ingredient-Bone_Meal.png",
+      "value": 5,
+      "weight": 0.5
+    },
+    {
+      "name": "Briar Heart",
+      "effects": ["0003EB17", "0003EB1C", "00073F30", "0003EAF8"],
+      "image": "http://www.uesp.net/w/images/thumb/6/6a/SR-icon-ingredient-Briar_Heart.png/48px-SR-icon-ingredient-Briar_Heart.png",
+      "value": 20,
+      "weight": 0.5
+    },
+    {
+      "name": "Butterfly Wing",
+      "effects": ["0003EB15", "0003EB23", "0010DE5E", "0003A2B6"],
+      "image": "http://www.uesp.net/w/images/thumb/1/16/SR-icon-ingredient-Blue_Butterfly_Wing.png/48px-SR-icon-ingredient-Blue_Butterfly_Wing.png",
+      "value": 3,
+      "weight": 0.1
+    },
+    {
+      "name": "Canis Root",
+      "effects": ["0003A2C6", "0003EB19", "0003EB1B", "00073F30"],
+      "image": "http://www.uesp.net/w/images/thumb/f/f6/SR-icon-ingredient-Canis_Root.png/48px-SR-icon-ingredient-Canis_Root.png",
+      "value": 5,
+      "weight": 0.1
+    },
+    {
+      "name": "Charred Skeever Hide",
+      "effects": ["0003EB16", "000AE722", "00090041", "0003EB15"],
+      "image": "http://www.uesp.net/w/images/thumb/7/71/SR-icon-ingredient-Charred_Skeever_Hide.png/48px-SR-icon-ingredient-Charred_Skeever_Hide.png",
+      "value": 1,
+      "weight": 0.5
+    },
+    {
+      "name": "Chaurus Eggs",
+      "effects": ["00090042", "0003EAF9", "0003A2B6", "0003EB3D"],
+      "image": "http://www.uesp.net/w/images/thumb/4/47/SR-icon-ingredient-Chaurus_Eggs.png/48px-SR-icon-ingredient-Chaurus_Eggs.png",
+      "value": 10,
+      "weight": 0.2
+    },
+    {
+      "name": "Chicken's Egg",
+      "effects": ["00039E51", "00073F2B", "0003AC2D", "0010DE5E"],
+      "image": "http://www.uesp.net/w/images/thumb/d/de/SR-icon-ingredient-Chicken%27s_Egg.png/48px-SR-icon-ingredient-Chicken%27s_Egg.png",
+      "value": 2,
+      "weight": 0.5
+    },
+    {
+      "name": "Creep Cluster",
+      "effects": ["0003EB17", "00073F2C", "0003EB01", "00073F2E"],
+      "image": "http://www.uesp.net/w/images/thumb/1/15/SR-icon-ingredient-Creep_Cluster.png/48px-SR-icon-ingredient-Creep_Cluster.png",
+      "value": 1,
+      "weight": 0.2
+    },
+    {
+      "name": "Crimson Nirnroot",
+      "effects": ["0003EB42", "0003A2C6", "0003EB3D", "00039E51"],
+      "image": "http://www.uesp.net/w/images/thumb/5/55/SR-icon-ingredient-Crimson_Nirnroot.png/48px-SR-icon-ingredient-Crimson_Nirnroot.png",
+      "value": 10,
+      "weight": 0.2
+    },
+    {
+      "name": "Cyrodilic Spadetail",
+      "effects": ["0003A2C6", "0003EB28", "00073F20", "00073F26"],
+      "image": "http://www.uesp.net/w/images/thumb/a/a9/SR-icon-ingredient-Cyrodilic_Spadetail.png/48px-SR-icon-ingredient-Cyrodilic_Spadetail.png",
+      "value": 15,
+      "weight": 0.25
+    },
+    {
+      "name": "Daedra Heart",
+      "effects": ["0003EB15", "00073F2C", "0003A2B6", "00073F20"],
+      "image": "http://www.uesp.net/w/images/thumb/b/b1/SR-icon-ingredient-Daedra_Heart.png/48px-SR-icon-ingredient-Daedra_Heart.png",
+      "value": 250,
+      "weight": 0.5
+    },
+    {
+      "name": "Deathbell",
+      "effects": ["0003EB42", "00073F23", "00073F25", "00090042"],
+      "image": "http://www.uesp.net/w/images/thumb/5/58/SR-icon-ingredient-Deathbell.png/48px-SR-icon-ingredient-Deathbell.png",
+      "value": 4,
+      "weight": 0.1
+    },
+    {
+      "name": "Dragon's Tongue",
+      "effects": ["0003EAEA", "0003EB23", "0003EB27", "0003EB1A"],
+      "image": "http://www.uesp.net/w/images/thumb/0/0e/SR-icon-ingredient-Dragons_Tongue.png/48px-SR-icon-ingredient-Dragons_Tongue.png",
+      "value": 5,
+      "weight": 0.1
+    },
+    {
+      "name": "Dwarven Oil",
+      "effects": ["00073F2E", "0003EB27", "0003EB07", "0003EB17"],
+      "image": "http://www.uesp.net/w/images/thumb/e/e5/SR-icon-ingredient-Dwarven_Oil.png/48px-SR-icon-ingredient-Dwarven_Oil.png",
+      "value": 15,
+      "weight": 0.25
+    },
+    {
+      "name": "Ectoplasm",
+      "effects": ["0003EB17", "0003EB26", "0003EAF8", "0003EB42"],
+      "image": "http://www.uesp.net/w/images/thumb/f/f1/SR-icon-ingredient-Ectoplasm.png/48px-SR-icon-ingredient-Ectoplasm.png",
+      "value": 25,
+      "weight": 0.1
+    },
+    {
+      "name": "Elves Ear",
+      "effects": ["0003EB17", "0003EB1B", "0003AC2E", "0003EAEA"],
+      "image": "http://www.uesp.net/w/images/thumb/7/7a/SR-icon-ingredient-Elves_Ear.png/48px-SR-icon-ingredient-Elves_Ear.png",
+      "value": 10,
+      "weight": 0.1
+    },
+    {
+      "name": "Eye of Sabre Cat",
+      "effects": ["0003EB16", "00073F26", "0003A2B6", "0003EB15"],
+      "image": "http://www.uesp.net/w/images/thumb/4/4e/SR-icon-ingredient-Eye_of_Sabre_Cat.png/48px-SR-icon-ingredient-Eye_of_Sabre_Cat.png",
+      "value": 2,
+      "weight": 0.1
+    },
+    {
+      "name": "Falmer Ear",
+      "effects": ["0003EB42", "00073F29", "00090041", "0003EB21"],
+      "image": "http://www.uesp.net/w/images/thumb/6/6e/SR-icon-ingredient-Falmer_Ear.png/48px-SR-icon-ingredient-Falmer_Ear.png",
+      "value": 10,
+      "weight": 0.2
+    },
+    {
+      "name": "Fire Salts",
+      "effects": ["0003AC2E", "0003EAEA", "0003EB17", "0003EB07"],
+      "image": "http://www.uesp.net/w/images/thumb/c/cc/SR-icon-ingredient-Fire_Salts.png/48px-SR-icon-ingredient-Fire_Salts.png",
+      "value": 50,
+      "weight": 0.25
+    },
+    {
+      "name": "Fly Amanita",
+      "effects": ["0003EAEA", "0003EB1A", "00073F29", "0003EB08"],
+      "image": "http://www.uesp.net/w/images/thumb/7/76/SR-icon-ingredient-Fly_Amanita.png/48px-SR-icon-ingredient-Fly_Amanita.png",
+      "value": 2,
+      "weight": 0.1
+    },
+    {
+      "name": "Frost Mirriam",
+      "effects": ["0003EAEB", "0003EB22", "00073F27", "00073F2C"],
+      "image": "http://www.uesp.net/w/images/thumb/9/99/SR-icon-ingredient-Frost_Mirriam.png/48px-SR-icon-ingredient-Frost_Mirriam.png",
+      "value": 1,
+      "weight": 0.1
+    },
+    {
+      "name": "Frost Salts",
+      "effects": ["00073F2D", "0003EAEB", "0003EB17", "0003EB25"],
+      "image": "http://www.uesp.net/w/images/thumb/5/58/SR-icon-ingredient-Frost_Salts.png/48px-SR-icon-ingredient-Frost_Salts.png",
+      "value": 100,
+      "weight": 0.25
+    },
+    {
+      "name": "Garlic",
+      "effects": ["00090041", "0003EAF9", "0003EB07", "0003EB06"],
+      "image": "http://www.uesp.net/w/images/thumb/e/e5/SR-icon-ingredient-Garlic.png/48px-SR-icon-ingredient-Garlic.png",
+      "value": 1,
+      "weight": 0.25
+    },
+    {
+      "name": "Giant Lichen",
+      "effects": ["00073F2F", "00073F26", "00090042", "0003EB17"],
+      "image": "http://www.uesp.net/w/images/thumb/8/8b/SR-icon-ingredient-Giant_Lichen.png/48px-SR-icon-ingredient-Giant_Lichen.png",
+      "value": 5,
+      "weight": 0.25
+    },
+    {
+      "name": "Giant's Toe",
+      "effects": ["0003A2C6", "0003EAF3", "0003EB01", "00073F2C"],
+      "image": "http://www.uesp.net/w/images/thumb/b/bc/SR-icon-ingredient-Giants_Toe.png/48px-SR-icon-ingredient-Giants_Toe.png",
+      "value": 20,
+      "weight": 1.0
+    },
+    {
+      "name": "Glow Dust",
+      "effects": ["0003A2B6", "00073F2B", "0003EB26", "0003EAEC"],
+      "image": "http://www.uesp.net/w/images/thumb/f/f8/SR-icon-ingredient-Glow_Dust.png/48px-SR-icon-ingredient-Glow_Dust.png",
+      "value": 20,
+      "weight": 0.5
+    },
+    {
+      "name": "Glowing Mushroom",
+      "effects": ["0003EAEC", "0003EB26", "0003EB1D", "0003EAF3"],
+      "image": "http://www.uesp.net/w/images/thumb/7/71/SR-icon-ingredient-Glowing_Mushroom.png/48px-SR-icon-ingredient-Glowing_Mushroom.png",
+      "value": 5,
+      "weight": 0.2
+    },
+    {
+      "name": "Grass Pod",
+      "effects": ["00090041", "00073F27", "0003EB24", "0003EB17"],
+      "image": "http://www.uesp.net/w/images/thumb/7/78/SR-icon-ingredient-Grass_Pod.png/48px-SR-icon-ingredient-Grass_Pod.png",
+      "value": 1,
+      "weight": 0.1
+    },
+    {
+      "name": "Hagraven Claw",
+      "effects": ["00039E51", "0010DE5F", "0003EB29", "0003EB23"],
+      "image": "http://www.uesp.net/w/images/thumb/3/30/SR-icon-ingredient-Hagraven_Claw.png/48px-SR-icon-ingredient-Hagraven_Claw.png",
+      "value": 20,
+      "weight": 0.25
+    },
+    {
+      "name": "Hagraven Feathers",
+      "effects": ["0003A2B6", "0003EB25", "00073F29", "00073F2F"],
+      "image": "http://www.uesp.net/w/images/thumb/d/d8/SR-icon-ingredient-Hagraven_Feathers.png/48px-SR-icon-ingredient-Hagraven_Feathers.png",
+      "value": 20,
+      "weight": 0.1
+    },
+    {
+      "name": "Hanging Moss",
+      "effects": ["0003A2B6", "0003EAF3", "00073F2B", "0003EB19"],
+      "image": "http://www.uesp.net/w/images/thumb/2/22/SR-icon-ingredient-Hanging_Moss.png/48px-SR-icon-ingredient-Hanging_Moss.png",
+      "value": 1,
+      "weight": 0.25
+    },
+    {
+      "name": "Hawk Beak",
+      "effects": ["0003EB16", "0003EAEB", "0003EB01", "0003EAEC"],
+      "image": "http://www.uesp.net/w/images/thumb/6/69/SR-icon-ingredient-Hawk_Beak.png/48px-SR-icon-ingredient-Hawk_Beak.png",
+      "value": 15,
+      "weight": 0.25
+    },
+    {
+      "name": "Hawk Feathers",
+      "effects": ["000AE722", "0003EB1F", "0003EB19", "0003EB22"],
+      "image": "http://www.uesp.net/w/images/thumb/5/5c/SR-icon-ingredient-Hawk_Feathers.png/48px-SR-icon-ingredient-Hawk_Feathers.png",
+      "value": 15,
+      "weight": 0.1
+    },
+    {
+      "name": "Histcarp",
+      "effects": ["0003EB16", "0003EAF8", "00073F2C", "0003AC2D"],
+      "image": "http://www.uesp.net/w/images/thumb/e/ec/SR-icon-ingredient-Histcarp.png/48px-SR-icon-ingredient-Histcarp.png",
+      "value": 6,
+      "weight": 0.25
+    },
+    {
+      "name": "Honeycomb",
+      "effects": ["0003EB16", "0003EB1C", "0003EB1F", "00073F23"],
+      "image": "http://www.uesp.net/w/images/thumb/e/e0/SR-icon-ingredient-Honeycomb.png/48px-SR-icon-ingredient-Honeycomb.png",
+      "value": 5,
+      "weight": 1.0
+    },
+    {
+      "name": "Human Flesh",
+      "effects": ["0003EB42", "00073F30", "0003EB17", "0003EB22"],
+      "image": "http://www.uesp.net/w/images/thumb/9/9d/SR-icon-ingredient-Human_Flesh.png/48px-SR-icon-ingredient-Human_Flesh.png",
+      "value": 1,
+      "weight": 0.25
+    },
+    {
+      "name": "Human Heart",
+      "effects": ["0003EB42", "0003A2B6", "00073F2B", "00073F29"],
+      "image": "http://www.uesp.net/w/images/thumb/f/f6/SR-icon-ingredient-Human_Heart.png/48px-SR-icon-ingredient-Human_Heart.png",
+      "value": 0,
+      "weight": 1.0
+    },
+    {
+      "name": "Ice Wraith Teeth",
+      "effects": ["0003AC2E", "0003EB1E", "0003EB3D", "00073F2D"],
+      "image": "http://www.uesp.net/w/images/thumb/9/95/SR-icon-ingredient-Ice_Wraith_Teeth.png/48px-SR-icon-ingredient-Ice_Wraith_Teeth.png",
+      "value": 30,
+      "weight": 0.25
+    },
+    {
+      "name": "Imp Stool",
+      "effects": ["0003EB42", "0010AA4A", "00073F30", "0003EB15"],
+      "image": "http://www.uesp.net/w/images/thumb/7/77/SR-icon-ingredient-Imp_Stool.png/48px-SR-icon-ingredient-Imp_Stool.png",
+      "value": 0,
+      "weight": 0.3
+    },
+    {
+      "name": "Jazbay Grapes",
+      "effects": ["00073F2E", "0003EAF8", "0003EB07", "00073F26"],
+      "image": "http://www.uesp.net/w/images/thumb/5/50/SR-icon-ingredient-Jazbay_Grapes.png/48px-SR-icon-ingredient-Jazbay_Grapes.png",
+      "value": 1,
+      "weight": 0.2
+    },
+    {
+      "name": "Juniper Berries",
+      "effects": ["00073F2D", "0003EB1B", "0003EB06", "00073F2C"],
+      "image": "http://www.uesp.net/w/images/thumb/1/10/SR-icon-ingredient-Juniper_Berries.png/48px-SR-icon-ingredient-Juniper_Berries.png",
+      "value": 1,
+      "weight": 0.1
+    },
+    {
+      "name": "Large Antlers",
+      "effects": ["0003EB16", "0003EAF9", "00073F25", "00073F2C"],
+      "image": "http://www.uesp.net/w/images/thumb/6/69/SR-icon-ingredient-Large_Antlers.png/48px-SR-icon-ingredient-Large_Antlers.png",
+      "value": 2,
+      "weight": 0.1
+    },
+    {
+      "name": "Lavender",
+      "effects": ["00039E51", "0003EAF9", "00073F27", "0003EB25"],
+      "image": "http://www.uesp.net/w/images/thumb/3/30/SR-icon-ingredient-Lavender.png/48px-SR-icon-ingredient-Lavender.png",
+      "value": 1,
+      "weight": 0.1
+    },
+    {
+      "name": "Luna Moth Wing",
+      "effects": ["0003A2B6", "0003EB1F", "0003EB06", "0003EB3D"],
+      "image": "http://www.uesp.net/w/images/thumb/f/f6/SR-icon-ingredient-Luna_Moth_Wing.png/48px-SR-icon-ingredient-Luna_Moth_Wing.png",
+      "value": 5,
+      "weight": 0.1
+    },
+    {
+      "name": "Moon Sugar",
+      "effects": ["00073F2D", "0003EAEB", "0003EB17", "0003EB07"],
+      "image": "http://www.uesp.net/w/images/thumb/4/48/SR-icon-ingredient-Moon_Sugar.png/48px-SR-icon-ingredient-Moon_Sugar.png",
+      "value": 50,
+      "weight": 0.25
+    },
+    {
+      "name": "Mora Tapinella",
+      "effects": ["0003EB17", "0010AA4A", "0003EB08", "0003EB27"],
+      "image": "http://www.uesp.net/w/images/thumb/5/51/SR-icon-ingredient-Mora_Tapinella.png/48px-SR-icon-ingredient-Mora_Tapinella.png",
+      "value": 4,
+      "weight": 0.25
+    },
+    {
+      "name": "Mudcrab Chitin",
+      "effects": ["0003EB16", "000AE722", "00090041", "0003EAEA"],
+      "image": "http://www.uesp.net/w/images/thumb/7/74/SR-icon-ingredient-Mudcrab_Chitin.png/48px-SR-icon-ingredient-Mudcrab_Chitin.png",
+      "value": 2,
+      "weight": 0.25
+    },
+    {
+      "name": "Namira's Rot",
+      "effects": ["0003A2B6", "0003EB21", "00073F20", "0003EB06"],
+      "image": "http://www.uesp.net/w/images/thumb/5/59/SR-icon-ingredient-Namira%27s_Rot.png/48px-SR-icon-ingredient-Namira%27s_Rot.png",
+      "value": 0,
+      "weight": 0.25
+    },
+    {
+      "name": "Nightshade",
+      "effects": ["0003EB42", "00073F2B", "0010DE5E", "0003EB26"],
+      "image": "http://www.uesp.net/w/images/thumb/6/6f/SR-icon-ingredient-Nightshade.png/48px-SR-icon-ingredient-Nightshade.png",
+      "value": 8,
+      "weight": 0.1
+    },
+    {
+      "name": "Nirnroot",
+      "effects": ["0003EB42", "0003A2C6", "0003EB3D", "00039E51"],
+      "image": "http://www.uesp.net/w/images/thumb/5/55/SR-icon-ingredient-Crimson_Nirnroot.png/48px-SR-icon-ingredient-Crimson_Nirnroot.png",
+      "value": 10,
+      "weight": 0.2
+    },
+    {
+      "name": "Nordic Barnacle",
+      "effects": ["0003A2B6", "0003AC2D", "0003EB06", "0003EB20"],
+      "image": "http://www.uesp.net/w/images/thumb/7/75/SR-icon-ingredient-Nordic_Barnacle.png/48px-SR-icon-ingredient-Nordic_Barnacle.png",
+      "value": 5,
+      "weight": 0.2
+    },
+    {
+      "name": "Orange Dartwing",
+      "effects": ["0003EB16", "00073F27", "0003EB20", "0010AA4A"],
+      "image": "http://www.uesp.net/w/images/thumb/e/e7/SR-icon-ingredient-Orange_Dartwing.png/48px-SR-icon-ingredient-Orange_Dartwing.png",
+      "value": 1,
+      "weight": 0.1
+    },
+    {
+      "name": "Pearl",
+      "effects": ["0003EB16", "0003EB1C", "0003EB17", "0003EAEC"],
+      "image": "http://www.uesp.net/w/images/thumb/a/ad/SR-icon-ingredient-Pearl.png/48px-SR-icon-ingredient-Pearl.png",
+      "value": 2,
+      "weight": 0.1
+    },
+    {
+      "name": "Pine Thrush Egg",
+      "effects": ["0003EB16", "0003EB21", "00090042", "0003EAEC"],
+      "image": "http://www.uesp.net/w/images/thumb/0/0f/SR-icon-ingredient-Pine_Thrush_Egg.png/48px-SR-icon-ingredient-Pine_Thrush_Egg.png",
+      "value": 2,
+      "weight": 0.5
+    },
+    {
+      "name": "Powdered Mammoth Tusk",
+      "effects": ["0003EB16", "0003EB22", "00073F2D", "00073F20"],
+      "image": "http://www.uesp.net/w/images/thumb/c/c9/SR-icon-ingredient-Powdered_Mammoth_Tusk.png/48px-SR-icon-ingredient-Powdered_Mammoth_Tusk.png",
+      "value": 2,
+      "weight": 0.1
+    },
+    {
+      "name": "Purple Mountain Flower",
+      "effects": ["0003EB16", "0003EB22", "0010DE5F", "0003EAEB"],
+      "image": "http://www.uesp.net/w/images/thumb/e/e1/SR-icon-ingredient-Purple_Mountain_Flower.png/48px-SR-icon-ingredient-Purple_Mountain_Flower.png",
+      "value": 2,
+      "weight": 0.1
+    },
+    {
+      "name": "Red Mountain Flower",
+      "effects": ["0003EB17", "00073F27", "0003EAF8", "0003EB42"],
+      "image": "http://www.uesp.net/w/images/thumb/b/bb/SR-icon-ingredient-Red_Mountain_Flower.png/48px-SR-icon-ingredient-Red_Mountain_Flower.png",
+      "value": 2,
+      "weight": 0.1
+    },
+    {
+      "name": "River Betty",
+      "effects": ["0003EB42", "0003EB24", "00073F25", "0003EB01"],
+      "image": "http://www.uesp.net/w/images/thumb/2/25/SR-icon-ingredient-River_Betty.png/48px-SR-icon-ingredient-River_Betty.png",
+      "value": 15,
+      "weight": 0.25
+    },
+    {
+      "name": "Rock Warbler Egg",
+      "effects": ["0003EB15", "0003EB19", "0003A2C6", "00073F2E"],
+      "image": "http://www.uesp.net/w/images/thumb/f/fc/SR-icon-ingredient-Rock_Warbler_Egg.png/48px-SR-icon-ingredient-Rock_Warbler_Egg.png",
+      "value": 2,
+      "weight": 0.5
+    },
+    {
+      "name": "Sabre Cat Tooth",
+      "effects": ["0003EB16", "0003EB1E", "0003EB1D", "00090042"],
+      "image": "http://www.uesp.net/w/images/thumb/1/1b/SR-icon-ingredient-Sabre_Cat_Tooth.png/48px-SR-icon-ingredient-Sabre_Cat_Tooth.png",
+      "value": 2,
+      "weight": 0.1
+    },
+    {
+      "name": "Salt Pile",
+      "effects": ["00073F2E", "0003EB28", "00073F25", "0003EB07"],
+      "image": "http://www.uesp.net/w/images/thumb/3/36/SR-icon-ingredient-Salt_Pile.png/48px-SR-icon-ingredient-Salt_Pile.png",
+      "value": 2,
+      "weight": 0.2
+    },
+    {
+      "name": "Scaly Pholiota",
+      "effects": ["00073F2E", "0003EB27", "0003EB08", "0003EB01"],
+      "image": "http://www.uesp.net/w/images/thumb/1/18/SR-icon-ingredient-Scaly_Pholiota.png/48px-SR-icon-ingredient-Scaly_Pholiota.png",
+      "value": 4,
+      "weight": 0.25
+    },
+    {
+      "name": "Silverside Perch",
+      "effects": ["0003EB16", "00073F2C", "00073F26", "0003EAEB"],
+      "image": "http://www.uesp.net/w/images/thumb/3/32/SR-icon-ingredient-Silverside_Perch.png/48px-SR-icon-ingredient-Silverside_Perch.png",
+      "value": 15,
+      "weight": 0.25
+    },
+    {
+      "name": "Skeever Tail",
+      "effects": ["00073F2C", "00073F26", "0003EB42", "0003EB1F"],
+      "image": "http://www.uesp.net/w/images/thumb/d/dc/SR-icon-ingredient-Skeever_Tail.png/48px-SR-icon-ingredient-Skeever_Tail.png",
+      "value": 3,
+      "weight": 0.2
+    },
+    {
+      "name": "Slaughterfish Egg",
+      "effects": ["00090041", "0003EB20", "0010AA4A", "0003EAF9"],
+      "image": "http://www.uesp.net/w/images/thumb/8/84/SR-icon-ingredient-Slaughterfish_Egg.png/48px-SR-icon-ingredient-Slaughterfish_Egg.png",
+      "value": 3,
+      "weight": 0.2
+    },
+    {
+      "name": "Slaughterfish Scales",
+      "effects": ["0003EAEB", "0010AA4A", "0003EB1E", "0003EB1C"],
+      "image": "http://www.uesp.net/w/images/thumb/0/0f/SR-icon-ingredient-Slaughterfish_Scales.png/48px-SR-icon-ingredient-Slaughterfish_Scales.png",
+      "value": 3,
+      "weight": 0.1
+    },
+    {
+      "name": "Small Antlers",
+      "effects": ["00090042", "0003EB28", "0010DE5E", "0003EB42"],
+      "image": "http://www.uesp.net/w/images/thumb/4/4e/SR-icon-ingredient-Small_Antlers.png/48px-SR-icon-ingredient-Small_Antlers.png",
+      "value": 2,
+      "weight": 0.1
+    },
+    {
+      "name": "Small Pearl",
+      "effects": ["0003EB16", "0003EB19", "0003EB28", "0003EAEB"],
+      "image": "http://www.uesp.net/w/images/thumb/8/8f/SR-icon-ingredient-Small_Pearl.png/48px-SR-icon-ingredient-Small_Pearl.png",
+      "value": 2,
+      "weight": 0.1
+    },
+    {
+      "name": "Snowberries",
+      "effects": ["0003EAEA", "0003EB29", "0003EAEB", "0003EAEC"],
+      "image": "http://www.uesp.net/w/images/thumb/d/d3/SR-icon-ingredient-Snowberries.png/48px-SR-icon-ingredient-Snowberries.png",
+      "value": 4,
+      "weight": 0.1
+    },
+    {
+      "name": "Spider Egg",
+      "effects": ["0003A2C6", "00073F2B", "0003EB21", "0003EB1B"],
+      "image": "http://www.uesp.net/w/images/thumb/0/07/SR-icon-ingredient-Spider_Egg.png/48px-SR-icon-ingredient-Spider_Egg.png",
+      "value": 5,
+      "weight": 0.2
+    },
+    {
+      "name": "Spriggan Sap",
+      "effects": ["00073F2B", "0003EB29", "0003EB1D", "0003EB24"],
+      "image": "http://www.uesp.net/w/images/thumb/d/d6/SR-icon-ingredient-Spriggan_Sap.png/48px-SR-icon-ingredient-Spriggan_Sap.png",
+      "value": 15,
+      "weight": 0.2
+    },
+    {
+      "name": "Swamp Fungal Pod",
+      "effects": ["0003EAEC", "0010DE5F", "00073F30", "0003EB15"],
+      "image": "http://www.uesp.net/w/images/thumb/9/92/SR-icon-ingredient-Swamp_Fungal_Pod.png/48px-SR-icon-ingredient-Swamp_Fungal_Pod.png",
+      "value": 5,
+      "weight": 0.25
+    },
+    {
+      "name": "Taproot",
+      "effects": ["00073F2E", "0003EB27", "0003EB07", "0003EB17"],
+      "image": "http://www.uesp.net/w/images/thumb/7/78/SR-icon-ingredient-Taproot.png/48px-SR-icon-ingredient-Taproot.png",
+      "value": 15,
+      "weight": 0.5
+    },
+    {
+      "name": "Thistle Branch",
+      "effects": ["0003EAEB", "00073F23", "00090041", "0003EB1E"],
+      "image": "http://www.uesp.net/w/images/thumb/b/bf/SR-icon-ingredient-Thistle_Branch.png/48px-SR-icon-ingredient-Thistle_Branch.png",
+      "value": 1,
+      "weight": 0.1
+    },
+    {
+      "name": "Torchbug Thorax",
+      "effects": ["0003EB16", "0010DE5F", "00073F2E", "0003EAF9"],
+      "image": "http://www.uesp.net/w/images/thumb/9/99/SR-icon-ingredient-Torchbug_Thorax.png/48px-SR-icon-ingredient-Torchbug_Thorax.png",
+      "value": 1,
+      "weight": 0.1
+    },
+    {
+      "name": "Troll Fat",
+      "effects": ["00090041", "0003EB1A", "00073F29", "0003EB42"],
+      "image": "http://www.uesp.net/w/images/thumb/8/8a/SR-icon-ingredient-Troll_Fat.png/48px-SR-icon-ingredient-Troll_Fat.png",
+      "value": 15,
+      "weight": 1.0
+    },
+    {
+      "name": "Tundra Cotton",
+      "effects": ["00039E51", "0003EAF8", "0003EB1C", "0003EB23"],
+      "image": "http://www.uesp.net/w/images/thumb/7/7e/SR-icon-ingredient-Tundra_Cotton.png/48px-SR-icon-ingredient-Tundra_Cotton.png",
+      "value": 1,
+      "weight": 0.1
+    },
+    {
+      "name": "Vampire Dust",
+      "effects": ["0003EB3D", "0003EB17", "0003EB06", "000AE722"],
+      "image": "http://www.uesp.net/w/images/thumb/2/2f/SR-icon-ingredient-Vampire_Dust.png/48px-SR-icon-ingredient-Vampire_Dust.png",
+      "value": 25,
+      "weight": 0.2
+    },
+    {
+      "name": "Void Salts",
+      "effects": ["00073F2F", "00039E51", "0003EB42", "0003EAF8"],
+      "image": "http://www.uesp.net/w/images/thumb/7/77/SR-icon-ingredient-Void_Salts.png/48px-SR-icon-ingredient-Void_Salts.png",
+      "value": 125,
+      "weight": 0.2
+    },
+    {
+      "name": "Wheat",
+      "effects": ["0003EB15", "0003EAF3", "00073F2C", "0010DE5F"],
+      "image": "http://www.uesp.net/w/images/thumb/7/7f/SR-icon-ingredient-Wheat.png/48px-SR-icon-ingredient-Wheat.png",
+      "value": 5,
+      "weight": 0.1
+    },
+    {
+      "name": "White Cap",
+      "effects": ["0003AC2E", "0003EB1E", "0003EB17", "00073F27"],
+      "image": "http://www.uesp.net/w/images/thumb/f/fa/SR-icon-ingredient-White_Cap.png/48px-SR-icon-ingredient-White_Cap.png",
+      "value": 0,
+      "weight": 0.3
+    },
+    {
+      "name": "Wisp Wrappings",
+      "effects": ["0003EB16", "0003EB26", "0003EB01", "00039E51"],
+      "image": "http://www.uesp.net/w/images/thumb/9/9d/SR-icon-ingredient-Wisp_Wrappings.png/48px-SR-icon-ingredient-Wisp_Wrappings.png",
+      "value": 2,
+      "weight": 0.1
+    }
+  ]
+}

@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import model.*;
 import view.*;
+import data.*;
 
 import java.util.*;
 
@@ -74,7 +75,7 @@ public class AlchemyController {
      *
      * @param ingredient
      * @return boolean
-     */
+     **/
 //    private boolean isEffectPresent(Ingredient ingredient, String hashValue) {
 //        Effect effect = getEffectByHashValue(hashValue);
 //        if (effect != null) {
