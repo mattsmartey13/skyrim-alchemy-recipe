@@ -1,37 +1,44 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
+import java.beans.ConstructorProperties;
+
 public class Item {
 
-    private String type;
-    private Enchantment armorEnchantement;
+    @JsonProperty("name")
+    private String name;
+    private int alchemyBoost;
 
-    public Item(String type) {
-        this.type = type;
+    @ConstructorProperties({"name"})
+    public Item(String name) {
+        this.name = name;
     }
 
-    public String getType() {
-        return type;
+    @JsonGetter("name")
+    public String getName() {
+        return name;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    @JsonSetter("name")
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Item(Enchantment armorEnchantement) {
-        this.armorEnchantement = armorEnchantement;
+    public int getAlchemyBoost() {
+        return alchemyBoost;
     }
 
-    public Enchantment getArmorEnchantement() {
-        return armorEnchantement;
-    }
-
-    public void setArmorEnchantement(Enchantment armorEnchantement) {
-        this.armorEnchantement = armorEnchantement;
+    public void setAlchemyBoost(int alchemyBoost) {
+        this.alchemyBoost = alchemyBoost;
     }
 
     @Override
     public String toString() {
-        return "Item [armorEnchantement=" + armorEnchantement + "]";
+        return "Item{" +
+                "name='" + name + '\'' +
+                ", alchemyBoost=" + alchemyBoost +
+                '}';
     }
-
 }

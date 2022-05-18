@@ -1,68 +1,54 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
+
+import java.beans.ConstructorProperties;
+
 public class Perk {
 
-    private String perkName, hashCode;
-    private int rank, alchemyLvlReq;
-    private double boost;
-    private Perk perkReq;
+    @JsonProperty("name")
+    private String name;
+    @JsonProperty("hash")
+    private String hash;
+    @JsonProperty("multiplier")
+    private double multiplier;
 
-    //constructor
-    public Perk(String perkName, String hashCode, int rank, int alchemyLvlReq, Perk perkReq, double boost) {
-        this.perkName = perkName;
-        this.hashCode = hashCode;
-        this.rank = rank;
-        this.alchemyLvlReq = alchemyLvlReq;
-        this.perkReq = perkReq;
-        this.boost = boost;
+    @ConstructorProperties({"name", "hash", "multiplier"})
+    public Perk(String name, String hash, double multiplier) {
+        this.name = name;
+        this.hash = hash;
+        this.multiplier = multiplier;
     }
 
-    //getter setters
-    public String getPerkName() {
-        return perkName;
+    @JsonGetter("name")
+    public String getName() {
+        return name;
     }
 
-    public void setPerkName(String perkName) {
-        this.perkName = perkName;
+    @JsonSetter("name")
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getHashCode() {
-        return hashCode;
+    @JsonGetter("hash")
+    public String getHash() {
+        return hash;
     }
 
-    public void setHashCode(String hashCode) {
-        this.hashCode = hashCode;
+    @JsonSetter("hash")
+    public void setHash(String hash) {
+        this.hash = hash;
     }
 
-    public int getRank() {
-        return rank;
+    @JsonGetter("multiplier")
+    public double getMultiplier() {
+        return multiplier;
     }
 
-    public void setRank(int rank) {
-        this.rank = rank;
-    }
-
-    public int getAlchemyLvlReq() {
-        return alchemyLvlReq;
-    }
-
-    public void setAlchemyLvlReq(int alchemyLvlReq) {
-        this.alchemyLvlReq = alchemyLvlReq;
-    }
-
-    public Perk getPerkReq() {
-        return perkReq;
-    }
-
-    public void setPerkReq(Perk perkReq) {
-        this.perkReq = perkReq;
-    }
-
-    public double getBoost() {
-        return boost;
-    }
-
-    public void setBoost(double boost) {
-        this.boost = boost;
+    @JsonSetter("multiplier")
+    public void setMultiplier(double multiplier) {
+        this.multiplier = multiplier;
     }
 }
