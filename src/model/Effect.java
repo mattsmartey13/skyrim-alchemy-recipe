@@ -1,136 +1,148 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
+
+import java.beans.ConstructorProperties;
 import java.util.Comparator;
 
 public class Effect implements Comparator<Effect>, Comparable<Effect> {
 
-    private String effectName, hashValue;
-    private boolean helpful, harmful, stats, skills;
-    private int baseMag, baseDur, goldLvl100;
+    @JsonProperty("name")
+    private String name;
+    @JsonProperty("hash")
+    private String hash;
+    @JsonProperty("effect")
+    private String effect;
+    @JsonProperty("baseCost")
     private double baseCost;
+    @JsonProperty("baseMag")
+    private int baseMag;
+    @JsonProperty("baseDur")
+    private int baseDur;
+    @JsonProperty("goldLvl100")
+    private int goldLvl100;
+    @JsonProperty("style")
+    private String style;
 
-    public Effect(
-            String effectName,
-            String hashValue,
-            boolean helpful,
-            boolean harmful,
-            double baseCost,
-            int baseMag,
-            int baseDur,
-            int goldLvl100,
-            boolean stats,
-            boolean skills
-    ) {
-        this.effectName = effectName;
-        this.hashValue = hashValue;
-        this.helpful = helpful;
-        this.harmful = harmful;
+    @ConstructorProperties({"name", "hash", "effect", "baseCost", "baseMag", "baseDur", "goldLvl100", "style"})
+    public Effect(String name, String hash, String effect, double baseCost, int baseMag, int baseDur, int goldLvl100, String style) {
+        this.name = name;
+        this.hash = hash;
+        this.effect = effect;
         this.baseCost = baseCost;
         this.baseMag = baseMag;
         this.baseDur = baseDur;
         this.goldLvl100 = goldLvl100;
-        this.stats = stats;
-        this.skills = skills;
+        this.style = style;
     }
 
-    public boolean isStats() {
-        return stats;
+    @JsonGetter("name")
+    public String getName() {
+        return name;
     }
 
-    public void setStats(boolean stats) {
-        this.stats = stats;
+    @JsonSetter("name")
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public boolean isSkills() {
-        return skills;
+    @JsonGetter("hash")
+    public String getHash() {
+        return hash;
     }
 
-    public void setSkills(boolean skills) {
-        this.skills = skills;
+    @JsonSetter("hash")
+    public void setHash(String hash) {
+        this.hash = hash;
     }
 
-    public String getEffectName() {
-        return effectName;
+    @JsonGetter("effect")
+    public String getEffect() {
+        return effect;
     }
 
-    public void setEffectName(String effectName) {
-        this.effectName = effectName;
+    @JsonSetter("effect")
+    public void setEffect(String effect) {
+        this.effect = effect;
     }
 
-    public String getHashValue() {
-        return hashValue;
+    @JsonGetter("style")
+    public String getStyle() {
+        return style;
     }
 
-    public void setHashValue(String hashValue) {
-        this.hashValue = hashValue;
+    @JsonSetter("style")
+    public void setStyle(String style) {
+        this.style = style;
     }
 
-    public boolean isHelpful() {
-        return helpful;
-    }
-
-    public void setHelpful(boolean helpful) {
-        this.helpful = helpful;
-    }
-
-    public boolean isHarmful() {
-        return harmful;
-    }
-
-    public void setHarmful(boolean harmful) {
-        this.harmful = harmful;
-    }
-
+    @JsonGetter("baseMag")
     public int getBaseMag() {
         return baseMag;
     }
 
+    @JsonSetter("baseMag")
     public void setBaseMag(int baseMag) {
         this.baseMag = baseMag;
     }
 
+    @JsonGetter("baseDur")
     public int getBaseDur() {
         return baseDur;
     }
 
+    @JsonSetter("baseDur")
     public void setBaseDur(int baseDur) {
         this.baseDur = baseDur;
     }
 
+    @JsonGetter("goldLvl100")
     public int getGoldLvl100() {
         return goldLvl100;
     }
 
+    @JsonSetter("goldLvl100")
     public void setGoldLvl100(int goldLvl100) {
         this.goldLvl100 = goldLvl100;
     }
 
+    @JsonGetter("baseCost")
     public double getBaseCost() {
         return baseCost;
     }
 
+    @JsonSetter("baseCost")
     public void setBaseCost(double baseCost) {
         this.baseCost = baseCost;
     }
 
     @Override
     public String toString() {
-        return "Effect [effectName=" + effectName + ", hashValue=" + hashValue + ", helpful=" + helpful + ", harmful="
-                + harmful + ", baseMag=" + baseMag + ", baseDur=" + baseDur + ", goldLvl100=" + goldLvl100
-                + ", baseCost=" + baseCost + "]";
+        return "Effect{" +
+                "name='" + name + '\'' +
+                ", hash='" + hash + '\'' +
+                ", effect='" + effect + '\'' +
+                ", style='" + style + '\'' +
+                ", baseMag=" + baseMag +
+                ", baseDur=" + baseDur +
+                ", goldLvl100=" + goldLvl100 +
+                ", baseCost=" + baseCost +
+                '}';
     }
 
     @Override
     public int compareTo(Effect e) {
-        return (this.hashValue).compareTo(e.hashValue);
+        return (this.hash).compareTo(e.hash);
     }
 
     @Override
     public int compare(Effect e1, Effect e2) {
-        if (e1.hashValue.equals(e2.hashValue)) {
-            return 1;
+        if (e1.hash.equals(e2.hash)) {
+            return 0;
         }
-        return 0;
+        return 1;
     }
 
 }

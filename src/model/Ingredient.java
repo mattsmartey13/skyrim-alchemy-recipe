@@ -1,90 +1,121 @@
 package model;
 
-import java.util.Collection;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
+
+import java.beans.ConstructorProperties;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.Optional;
 
 public class Ingredient implements Comparator<Ingredient>, Comparable<Ingredient> {
 
+    @JsonProperty("name")
     private String name;
-    private Map<String, Effect> effects;
-    private float baseMag;
+    @JsonProperty("hash")
+    private String hash;
+    @JsonProperty("effects")
+    private String[] effects;
+    @JsonProperty("magnitudeEffect")
+    private Optional<HashMap<Integer, Double>> magnitudeEffect;
 
-    //constructor
-    public Ingredient(String name) {
+    @JsonProperty("magnitudeTime")
+    private Optional<HashMap<Integer, Double>> magnitudeTime;
+    @JsonProperty("magnitudeValue")
+    private Optional<HashMap<Integer, Double>> magnitudeValue;
+
+    @ConstructorProperties({"name", "hash", "effects", "magnitudeEffect", "magnitudeTime", "magnitudeValue"})
+    public Ingredient(String name, String hash, String[] effects, Optional<HashMap<Integer, Double>> magnitudeEffect, Optional<HashMap<Integer, Double>> magnitudeTime, Optional<HashMap<Integer, Double>> magnitudeValue) {
         this.name = name;
-        effects = new HashMap<String, Effect>();
-    }
-
-    //getter setters
-    public Map<String, Effect> getEffects() {
-        return effects;
-    }
-
-    public void setEffects(Map<String, Effect> effects) {
+        this.hash = hash;
         this.effects = effects;
+        this.magnitudeEffect = magnitudeEffect;
+        this.magnitudeTime = magnitudeTime;
+        this.magnitudeValue = magnitudeValue;
     }
 
+    @JsonGetter("name")
     public String getName() {
         return name;
     }
 
+    @JsonSetter("name")
     public void setName(String name) {
         this.name = name;
     }
 
-    public void addEffect(Effect e) {
-        effects.put(e.getHashValue(), e);
+    @JsonGetter("hash")
+    public String getHash() {
+        return hash;
     }
 
-    public Effect getEffect(String e) {
-        return effects.get(e);
+    @JsonSetter("hash")
+    public void setHash(String hash) {
+        this.hash = hash;
     }
 
-    public Collection<Effect> getAllEffectsForIngredient() {
-        return effects.values();
+    @JsonGetter("effects")
+    public String[] getEffects() {
+        return effects;
     }
 
-    public float getbaseMag() {
-        return baseMag;
+    @JsonSetter("effects")
+    public void setEffects(String[] effects) {
+        this.effects = effects;
     }
 
-    public void setbaseMag(float baseMag) {
-        this.baseMag = baseMag;
+    @JsonGetter("magnitudeEffect")
+    public Optional<HashMap<Integer, Double>> getMagnitudeEffect() {
+        return magnitudeEffect;
     }
 
-    //change values of duration, magnitude and gold based on multiplier
-    //this affects all ingredients and needs to be potion specific
-    public void refactorMagnitude(Effect e, int multiplier) {
-        e.setBaseMag(e.getBaseMag() * multiplier);
+    @JsonSetter("magnitudeEffect")
+    public void setMagnitudeEffect(Optional<HashMap<Integer, Double>> magnitudeEffect) {
+        this.magnitudeEffect = magnitudeEffect;
     }
 
-    public void refactorDuration(Effect e, int multiplier) {
-        e.setBaseDur(e.getBaseDur() * multiplier);
+    @JsonGetter("magnitudeTime")
+    public Optional<HashMap<Integer, Double>> getMagnitudeTime() {
+        return magnitudeTime;
     }
 
-    public void refactorValue(Effect e, int multiplier) {
-        e.setBaseCost(e.getBaseCost() * multiplier);
+    @JsonSetter("magnitudeTime")
+    public void setMagnitudeTime(Optional<HashMap<Integer, Double>> magnitudeTime) {
+        this.magnitudeTime = magnitudeTime;
     }
 
-    //toString
+    @JsonGetter("magnitudeValue")
+    public Optional<HashMap<Integer, Double>> getMagnitudeValue() {
+        return magnitudeValue;
+    }
+
+    @JsonSetter("magnitudeValue")
+    public void setMagnitudeValue(Optional<HashMap<Integer, Double>> magnitudeValue) {
+        this.magnitudeValue = magnitudeValue;
+    }
+
     @Override
     public String toString() {
-        return "Ingredient [name=" + name + ", effects=" + effects + "]";
+        return "Ingredient{" +
+                "name='" + name + '\'' +
+                ", hash='" + hash + '\'' +
+                ", effects=" + Arrays.toString(effects) +
+                '}';
     }
 
     @Override
     public int compareTo(Ingredient i) {
-        return (this.name).compareTo(i.name);
+        return (this.hash).compareTo(i.hash);
     }
 
     @Override
     public int compare(Ingredient i1, Ingredient i2) {
-        if (i1.name.equals(i2.name)) {
-            return 1;
+        if (i1.hash.equals(i2.hash)) {
+            return 0;
         }
-        return 0;
+        return 1;
     }
 
 }

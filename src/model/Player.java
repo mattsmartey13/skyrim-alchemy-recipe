@@ -1,19 +1,17 @@
 package model;
 
-import java.util.Set;
-import java.util.TreeSet;
+import java.lang.reflect.Array;
 
 public class Player {
 
-    private int alchemyLevel;
+    private int alchemyLevel, playerGearTotal;
     private double basePercentStrength;
-    private Set<Perk> playerPerks;
-    private Set<Item> playerGear;
+    private String[] playerPerks;
 
     public Player() {
         alchemyLevel = 15;
-        playerPerks = new TreeSet<Perk>();
-        playerGear = new TreeSet<Item>();
+        playerPerks = new String[6];
+        playerGearTotal = 0;
     }
 
     public int getAlchemyLevel() {
@@ -24,36 +22,12 @@ public class Player {
         this.alchemyLevel = alchemyLevel;
     }
 
-    public Set<Perk> getPlayerPerks() {
-        return playerPerks;
+    public int getPlayerGearTotal() {
+        return playerGearTotal;
     }
 
-    public void setPlayerPerks(Set<Perk> playerPerks) {
-        this.playerPerks = playerPerks;
-    }
-
-    public Set<Item> getPlayerGear() {
-        return playerGear;
-    }
-
-    public void setPlayerGear(Set<Item> playerGear) {
-        this.playerGear = playerGear;
-    }
-
-    public void addPerk(Perk m) {
-        playerPerks.add(m);
-    }
-
-    public void clearPerks() {
-        playerPerks.clear();
-    }
-
-    public void addPlayerArmorItem(Item i) {
-        playerGear.add(i);
-    }
-
-    public void clearArmorItems() {
-        playerPerks.clear();
+    public void setPlayerGearTotal(int playerGearTotal) {
+        this.playerGearTotal = playerGearTotal;
     }
 
     public double getBasePercentStrength() {
@@ -64,8 +38,11 @@ public class Player {
         this.basePercentStrength = basePercentStrength;
     }
 
-    @Override
-    public String toString() {
-        return "Player [alchemyLevel=" + alchemyLevel + ", playerPerks=" + playerPerks + ", playerGear=" + playerGear + "]";
+    public String[] getPlayerPerks() {
+        return playerPerks;
+    }
+
+    public void setPlayerPerks(String[] playerPerks) {
+        this.playerPerks = playerPerks;
     }
 }

@@ -8,7 +8,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import model.Enchantment;
 import model.Item;
 import model.Perk;
 
@@ -18,7 +17,7 @@ public class PlayerDetailsPane extends GridPane {
     private TextField playerLevelTxt, alchemyLevelTxt;
     private ComboBox<Perk> perkComboBox;
     private ComboBox<Perk> playerPerkComboBox;
-    private ComboBox<Enchantment> encComboBox;
+//    private ComboBox<Enchantment> encComboBox;
     private ComboBox<Item> itemComboBox;
 
     private Button addEnchantmentBtn;
@@ -67,13 +66,13 @@ public class PlayerDetailsPane extends GridPane {
         this.playerPerkComboBox = playerPerkComboBox;
     }
 
-    public ComboBox<Enchantment> getEncComboBox() {
-        return encComboBox;
-    }
-
-    public void setEncComboBox(ComboBox<Enchantment> encComboBox) {
-        this.encComboBox = encComboBox;
-    }
+//    public ComboBox<Enchantment> getEncComboBox() {
+//        return encComboBox;
+//    }
+//
+//    public void setEncComboBox(ComboBox<Enchantment> encComboBox) {
+//        this.encComboBox = encComboBox;
+//    }
 
     public Button getSubmitBtn() {
         return submitBtn;

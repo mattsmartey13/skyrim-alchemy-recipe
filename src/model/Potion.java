@@ -1,21 +1,21 @@
 package model;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Potion {
-
     private String name;
-    private boolean potion;
-    private Map<String, Ingredient> ingredients;
+    private String[] effectStrings;
+    private int[] effectValues;
     private int goldCost;
-    private String description;
 
-    public Potion(String name, int goldCost, HashMap<String, Ingredient> ingredients) {
+    public Potion(String name, String[] effectStrings, int[] effectValues, int goldCost) {
         this.name = name;
+        this.effectStrings = effectStrings;
+        this.effectValues = effectValues;
         this.goldCost = goldCost;
-        ingredients = new HashMap<String, Ingredient>();
     }
 
     public String getName() {
@@ -26,12 +26,20 @@ public class Potion {
         this.name = name;
     }
 
-    public Map<String, Ingredient> getIngredients() {
-        return ingredients;
+    public String[] getEffectStrings() {
+        return effectStrings;
     }
 
-    public void setIngredients(Map<String, Ingredient> ingredients) {
-        this.ingredients = ingredients;
+    public void setEffectStrings(String[] effectStrings) {
+        this.effectStrings = effectStrings;
+    }
+
+    public int[] getEffectValues() {
+        return effectValues;
+    }
+
+    public void setEffectValues(int[] effectValues) {
+        this.effectValues = effectValues;
     }
 
     public int getGoldCost() {
@@ -42,32 +50,17 @@ public class Potion {
         this.goldCost = goldCost;
     }
 
-    public String getDescription() {
-        return description;
+    @Override
+    public String toString() {
+        return "Potion{" +
+                "name='" + name + '\'' +
+                ", effectStrings=" + Arrays.toString(effectStrings) +
+                ", effectValues=" + Arrays.toString(effectValues) +
+                ", goldCost=" + goldCost +
+                '}';
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public String toSkyrimPotionString() {
+        return "";
     }
-
-    public void addIngredient(Ingredient m) {
-        ingredients.put(m.getName(), m);
-    }
-
-    public Ingredient getIngredientByHash(String code) {
-        return ingredients.get(code);
-    }
-
-    public Collection<Ingredient> getAllIngredients() {
-        return ingredients.values();
-    }
-
-    public boolean isPotion() {
-        return potion;
-    }
-
-    public void setPotion(boolean potion) {
-        this.potion = potion;
-    }
-
 }
