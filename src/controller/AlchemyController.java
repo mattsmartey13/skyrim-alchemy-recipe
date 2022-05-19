@@ -12,31 +12,27 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 
-
 /**
  * TO DO:
  *
- * BACKEND:
+ * SAR-18
  *  Load ingredients from JSON [done]
  *  Load effects from JSON [done]
  *  Load perks from JSON [done]
  *  Load item types from JSON [done]
- *  Test JSON imports
- *  Is effect present in ingredient?
- *  Get effect object from has value
- *  Get common effects from ingredients
- *  Collate perk multipliers
- *  Get enchantment multipliers
- *  Purity/benefactor/poisoner effect removal
- *  Apply result formula to obtain final alchemy multiplier
- *  Calculate effect strength
- *  Calculate effect time
- *  Calculate effect value
+ *  Test JSON imports [done]
+ *  Is effect present in ingredient? [done]
+ *  Get effect object from hash value [done]
+ *  Get all ingredients with effect [done]
+ *  Get all ingredients with same effects [done]
+ *  Collate perk multipliers [done]
+ *  Get enchantment multipliers [done]
+ *  Benefactor/poisoner effect removal [done]
+ *  Calculate base duration [done]
+ *  Calculate base magnitude [done]
+ *  Calculate base cost [done]
  *  Create potion
- *
- *  FRONTEND
- *  Event handlers
- *
+ *  Write controller tests
  *
  * @author matth
  */
@@ -49,11 +45,19 @@ public class AlchemyController {
     private PlayerDetailsPane pdp;
     private ViewRecipePane vrp;
 
+    private final List<Ingredient> allIngredients = getIngredientsFromData();
+
+    private final List<Effect> allEffects = getEffectsFromData();
+
+    private final List<Perk> allPerks = getPerksFromData();
+
+    private final List<Item> allItems = getItemsFromData();
+
     /**
      * Constructor
      *
-     * @param model
-     * @param rootPane
+     * @param model the player with all their details
+     * @param rootPane the rootpane with all panes attached
      */
     public AlchemyController(Player model, AlchemyRootPane rootPane) {
         //initialise model and view fields
@@ -65,16 +69,15 @@ public class AlchemyController {
         this.vrp = rootPane.getViewRecipePane();
 
         //populate comboboxes
-        List<Effect> effects = getEffectsFromData();
-        List<Ingredient> ingredients = getIngredientsFromData();
-        List<Item> items = getItemsFromData();
-        List<Perk> perks = getPerksFromData();
-
 
         //attach event handlers using private helper method
         //this.attachEventHandlers();
     }
 
+    /**
+     * Extract effects from JSON into a list of Effect objects
+     * @return the list of effect objects
+     */
     private List<Effect> getEffectsFromData() {
         try {
             ObjectMapper mapper = new ObjectMapper();
@@ -85,6 +88,10 @@ public class AlchemyController {
         return null;
     }
 
+    /**
+     * Extract ingredients from JSON into a list of Ingredient objects
+     * @return the list of ingredient objects
+     */
     private List<Ingredient> getIngredientsFromData() {
         try {
             ObjectMapper mapper = new ObjectMapper();
@@ -96,6 +103,10 @@ public class AlchemyController {
         return null;
     }
 
+    /**
+     * Extract items from JSON into a list of Item objects
+     * @return the list of item objects
+     */
     private List<Item> getItemsFromData() {
         try {
             ObjectMapper mapper = new ObjectMapper();
@@ -106,6 +117,10 @@ public class AlchemyController {
         return null;
     }
 
+    /**
+     * Extract perks from JSON into a list of Perk objects
+     * @return the list of perk objects
+     */
     private List<Perk> getPerksFromData() {
         try {
             ObjectMapper mapper = new ObjectMapper();
@@ -129,225 +144,199 @@ public class AlchemyController {
     /**
      * Helper method to find if an ingredient possesses an effect.
      *
-     * @param ingredient
+     * @param ingredient The ingredient
      * @return boolean
      **/
-    private boolean isEffectPresent(Ingredient ingredient, String hashValue) {
-//        Effect effect = getEffectByHashValue(hashValue);
-//        if (effect != null) {
-//            if (ingredient.getAllEffectsForIngredient().contains(effect)) {
-//                return true;
-//            }
-//        }
-        return false;
+    private boolean isEffectPresent(Ingredient ingredient, String effectHash) {
+        String[] effects = ingredient.getEffects();
+        return Arrays.stream(effects).anyMatch(effectHash::contains);
     }
 
     /**
-     * Helper method to obtain effect from its in game hashValue.
+     * Helper method to obtain effect from its in game hash value.
      *
-     * @param hashValue
-     * @return String
+     * @param effectHash the effect's associated hashcode
+     * @return The effect with all its properties
      */
-//    private Effect getEffectByHashValue(String hashValue) {
-//        for (Effect e : ) {
-//            if (Objects.equals(hashValue, e.getHashValue())) {
-//                return e;
-//            }
-//        }
-//        return null;
-//    }
+    private Effect getEffectByHash(String effectHash) {
+        for (Effect e : Objects.requireNonNull(allEffects)) {
+            if (Objects.equals(effectHash, e.getHash())) {
+                return e;
+            }
+        }
+        return null;
+    }
 
     /**
-     * @param list
-     * @return List<Effect>
+     * Helper method to obtain ingredient from its in game hash value
+     * @param ingredientHash the ingredient's hash code
+     * @return the ingredient with all its properties
      */
-//    private static List<Effect> getDuplicateEffects(Collection<Effect> list) {
-//        final List<Effect> duplicatedEffects = new ArrayList<Effect>();
-//        Set<Effect> set = new HashSet<Effect>() {
-//            @Override
-//            public boolean add(Effect e) {
-//                if (contains(e)) {
-//                    duplicatedEffects.add(e);
-//                }
-//                return super.add(e);
-//            }
-//        };
-//
-//        set.addAll(list);
-//        return duplicatedEffects;
-//    }
+    public Ingredient getIngredientFromHash(String ingredientHash) {
+        for (Ingredient i : Objects.requireNonNull(allIngredients)) {
+            if (Objects.equals(ingredientHash, i.getHash())) {
+                return i;
+            }
+        }
+        return null;
+    }
 
     /**
-     * @param list
-     * @return boolean
-     */
-//    private static boolean hasDuplicateEffect(Collection<Effect> list) {
-//        return !getDuplicateEffects(list).isEmpty();
-//    }
-
-    /**
-     * The alchemy bonus from equipment is the sum of all item enchantments.
+     * Take an effect and find all ingredients with effect
      *
-     * @param player
-     * @return double
+     * @param effectHash the effect's hash
+     * @param allIngredients the list of all ingredients
+     * @return An ArrayList with all the matching ingredients
      */
-//    private double getEnchantmentPerkMultiplier(Player player) {
-//        double improvement = 100;
-////        for (Item e : player.getPlayerGear()) {
-////            improvement += e.getArmorEnchantement().getPercentImprovement();
-////        }
-//        return improvement / 100;
-//    }
+    private ArrayList<Ingredient> getIngredientsWithEffect(String effectHash, List<Ingredient> allIngredients) {
+        ArrayList<Ingredient> returnedIngredients = new ArrayList<>();
+
+        for (Ingredient i : allIngredients) {
+            if (Arrays.stream(i.getEffects()).anyMatch(effectHash::contains))
+                returnedIngredients.add(i);
+        }
+
+        return returnedIngredients;
+    }
 
     /**
-     * 10% bonus to Potion strength after obtaining the Seeker of Shadows perk from the Dragonborn DLC.
+     * Take an ingredient and find all ingredients that share at least one effect with it
      *
-     * @param player
-     * @return double
+     * @param ingredient the ingredient we want common effects for
+     * @param allIngredients List of all ingredients
+     * @return the ingredients that have a commonality with the ingredient we want
      */
-//    private double getSeekerShadowsPerkMultiplier(Player player) {
-//        for (String hash : player.getPlayerPerks()) {
-//            if (Objects.equals(hash, "xx034838"))
-//                return 1.1;
-//        }
-//        return 1.0;
-//    }
+    private ArrayList<Ingredient> getAllCommonIngredients(Ingredient ingredient, List<Ingredient> allIngredients) {
+        String[] ingredientEffects = ingredient.getEffects();
+        ArrayList<Ingredient> returnedIngredients = new ArrayList<>();
+
+        for (Ingredient ing : allIngredients) {
+            for (String effect : ingredientEffects) {
+                if (Arrays.stream(ing.getEffects()).anyMatch(effect::contains))
+                    returnedIngredients.add(ing);
+            }
+        }
+
+        return returnedIngredients;
+    }
+
+    private Perk getPerkFromHash(String perkHash) {
+        for (Perk p : Objects.requireNonNull(allPerks)) {
+            if (Objects.equals(perkHash, p.getHash())) {
+                return p;
+            }
+        }
+        return null;
+    }
+
+    private ArrayList<Double> getPerkMultiplierList(Player player) {
+        ArrayList<Double> perkArrayList = new ArrayList<>();
+        for (Perk perk : player.getPlayerPerks()) {
+            perkArrayList.add(perk.getMultiplier());
+        }
+        return perkArrayList;
+    }
+
 
     /**
-     * The player will see a 20% boost to their potion by increasing their Alchemist perk levels
-     * A level 5 perk will see the player double their potion strength.
-     *
-     * @param player
-     * @return double
+     * Return base magnitude based on the player's parameters and the effect
+     * @param player the player
+     * @param effect the effect
      */
-//    private double getAlchemistPerkMultiplier(Player player) {
-//        for (String hash : player.getPlayerPerks()) {
-//            if (Objects.equals(hash, "000c07cd"))
-//                return 2.0;
-//            else if (Objects.equals(hash, "000c07cc"))
-//                return 1.8;
-//            else if (Objects.equals(hash, "000c07cb"))
-//                return 1.6;
-//            else if (Objects.equals(hash, "000c07ca"))
-//                return 1.4;
-//            else if (Objects.equals(hash, "000be127"))
-//                return 1.2;
-//        }
-//        return 1.0;
-//    }
+    private double getPotionBaseMagnitude(Player player, Effect effect) {
+        List<Perk> playerPerks = player.getPlayerPerks();
+        dropBenefactorOrPoisoner(effect, playerPerks);
+
+        double result = getBaseDurAndMagValue(player) * effect.getBaseMag();
+        List<Double> perkMultipliers = new ArrayList<>(getPerkMultiplierList(player));
+
+        for (double perkMultiplier : perkMultipliers) {
+            result *= perkMultiplier;
+        }
+
+        if (result < 0) {
+            return Math.round(result);
+        } else {
+            return Math.round(effect.getBaseMag());
+        }
+    }
 
     /**
-     * The potion's strength will intensify by 25% if any of its effects restore stats  (health, magicka, stamina)
-     * and the Player has the Physician perk equipped.
-     *
-     * @param player
-     * @return double
+     * Return base duration based on the player's parameters and the effect
+     * @param player the player
+     * @param effect the effect
+     * @return the potion's base duration
      */
-//    private double getPhysicianPerkMultiplier(Player player, Effect effect) {
-//        String restoreHealth = "00042503";
-//        String restoreMagicka = "00042508";
-//        String restoreStamina = "00042503";
-//        String physician = "00058215";
-//
-//        boolean physicianEffects = false;
-//        boolean physicianPerk = false;
-//
-//        for (String hash : player.getPlayerPerks()) {
-//            if (Objects.equals(hash, physician)) {
-//                physicianPerk = true;
-//            }
-//        }
-//
-//        if (restoreHealth.equals(effect.getHashValue()) || restoreMagicka.equals(effect.getHashValue()) || restoreStamina.equals(effect.getHashValue())) {
-//            physicianEffects = true;
-//        }
-//
-//        if (physicianEffects && physicianPerk)
-//            return 1.25;
-//        else
-//            return 1.0;
-//    }
+    private double getPotionBaseDuration(Player player, Effect effect) {
+        List<Perk> playerPerks = player.getPlayerPerks();
+        dropBenefactorOrPoisoner(effect, playerPerks);
+
+        double result = getBaseDurAndMagValue(player) * effect.getBaseDur();
+        List<Double> perkMultipliers = new ArrayList<>(getPerkMultiplierList(player));
+
+        for (double perkMultiplier : perkMultipliers) {
+            result *= perkMultiplier;
+        }
+
+        if (result < 0) {
+            return Math.round(result);
+        } else {
+            return Math.round(effect.getBaseDur());
+        }
+    }
 
     /**
-     * The potion's strength will increase by 25% if the Player has the benefactor perk equipped and if
-     * the potion contains positive effects to the Player.
-     *
-     * @param player The player
-     * @return double
+     * Get the potion's base cost, following the obtaining of the magnitude and duration
+     * @param effect The effect
+     * @param magnitude The potion's base magnitude
+     * @param duration The potion's base duration
+     * @return The potion's base cost
      */
-//    private double getBenefactorPerkMultiplier(Player player, Effect effect) {
-//        String benefactor = "00058216";
-//        boolean benefactorPerk = false;
-//
-//        for (String hash : player.getPlayerPerks()) {
-//            if (Objects.equals(hash, benefactor) && Objects.equals(effect.getStyle(), "Helpful")) {
-//                benefactorPerk = true;
-//                break;
-//            }
-//        }
-//
-//        if (benefactorPerk)
-//            return 1.2;
-//        else
-//            return 1.0;
-//    }
+    private double getPotionBaseCost(Effect effect, double magnitude, double duration) {
+        if (magnitude == 0) {
+            return Math.floor(effect.getBaseCost() * Math.max(Math.pow(duration / 10, 1.1), 1));
+        } else if (duration == 0) {
+            return Math.floor(effect.getBaseCost() * Math.pow(magnitude, 1.1));
+        } else {
+            return Math.floor(effect.getBaseCost() * Math.max(Math.pow(magnitude, 1.1), 1) * Math.pow(duration / 10, 1.1));
+        }
+    }
 
     /**
-     * The potion's strength will increase by 25% if the Player has the poisoner perk equipped and if
-     * the potion contains negative effects to the Player.
-     **/
-//    private double getPoisonerPerkMultiplier(Player player, Effect effect) {
-//        String poisoner = "00042509";
-//        boolean poisonerPerk = false;
-//
-//        for (String hash : player.getPlayerPerks()) {
-//            if (Objects.equals(hash, poisoner) && Objects.equals(effect.getStyle(), "Harmful")) {
-//                poisonerPerk = true;
-//                break;
-//            }
-//        }
-//
-//        if (poisonerPerk)
-//            return 1.2;
-//        else
-//            return 1.0;
-//    }
-
-    /**
-     * Accounts for all multipliers and gives a final multiplier value for this specific effect
-     *
-     * @param player
-     * @return final multiplier
+     * Hardcoded method to drop Benefactor if creating a Poison, or drop Poisoner if creating a Potion
+     * @param effect the effect
+     * @param playerPerks the list of the player's perks
      */
-//    private double returnEffectStrengthMultiplier(Player player, Effect effect) {
-//        //set values
-//        final int fAlchemyIngredientInitMult = 4;
-//        final double fAlchemySkillFactor = 1.5;
-//
-//        //player specific perks
-//        double seekerShadow = getSeekerShadowsPerkMultiplier(player);
-//        double alchemistPerk = getAlchemistPerkMultiplier(player);
-//        double enchantments = getEnchantmentPerkMultiplier(player);
-//
-//        //ingredient based perks
-//        double physician = getPhysicianPerkMultiplier(player, effect);
-//        double benefactor = getBenefactorPerkMultiplier(player, effect);
-//        double poisoner = getPoisonerPerkMultiplier(player, effect);
-//
-//        double result = fAlchemyIngredientInitMult
-//                * effect.getBaseMag()
-//                * (1 + (fAlchemySkillFactor - 1) * player.getAlchemyLevel() / 100)
-//                * alchemistPerk
-//                * benefactor
-//                * physician
-//                * poisoner
-//                * enchantments
-//                * seekerShadow;
-//
-//        if (result < 0)
-//            return effect.getBaseMag();
-//        return result;
-//    }
+    private void dropBenefactorOrPoisoner(Effect effect, List<Perk> playerPerks) {
+        if (Objects.equals(effect.getEffect(), "Helpful")) {
+            if (playerPerks.contains(getPerkFromHash("00058217"))) {
+                Objects.requireNonNull(playerPerks).remove(getPerkFromHash("00058217"));
+            }
+        }
+
+        if (Objects.equals(effect.getEffect(), "Harmful")) {
+            if (playerPerks.contains(getPerkFromHash("00058216"))) {
+                Objects.requireNonNull(playerPerks).remove(getPerkFromHash("00058216"));
+            }
+        }
+    }
+
+    private double getBaseDurAndMagValue(Player player) {
+        int alchemyInitMulti = 4;
+        double skillMultiplier = 1.5 * ((double) player.getAlchemyLevel() / 100);
+
+        List<Integer> enchantments = new ArrayList<>();
+        player.getItems().forEach(item -> enchantments.add(item.getAlchemyBoost()));
+
+        int sumOfEnchantments;
+        if (enchantments.stream().mapToInt(i -> i).sum() != 0) {
+            sumOfEnchantments = enchantments.stream().mapToInt(i -> i).sum();
+        } else {
+            sumOfEnchantments = 1;
+        }
+
+        return alchemyInitMulti * skillMultiplier * sumOfEnchantments;
+    }
 
     /**
      * Submit player details and move to ingredients screen
