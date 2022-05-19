@@ -117,5 +117,4 @@ public class Ingredient implements Comparator<Ingredient>, Comparable<Ingredient
         }
         return 1;
     }
-
 }

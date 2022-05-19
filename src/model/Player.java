@@ -1,17 +1,17 @@
 package model;
 
-import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class Player {
 
-    private int alchemyLevel, playerGearTotal;
-    private double basePercentStrength;
-    private String[] playerPerks;
+    private int alchemyLevel;
+    private ArrayList<Perk> playerPerks;
+    private ArrayList<Item> items;
 
     public Player() {
         alchemyLevel = 15;
-        playerPerks = new String[6];
-        playerGearTotal = 0;
+        playerPerks = new ArrayList<>();
+        items = new ArrayList<>();
     }
 
     public int getAlchemyLevel() {
@@ -22,27 +22,28 @@ public class Player {
         this.alchemyLevel = alchemyLevel;
     }
 
-    public int getPlayerGearTotal() {
-        return playerGearTotal;
-    }
-
-    public void setPlayerGearTotal(int playerGearTotal) {
-        this.playerGearTotal = playerGearTotal;
-    }
-
-    public double getBasePercentStrength() {
-        return basePercentStrength;
-    }
-
-    public void setBasePercentStrength(double basePercentStrength) {
-        this.basePercentStrength = basePercentStrength;
-    }
-
-    public String[] getPlayerPerks() {
+    public ArrayList<Perk> getPlayerPerks() {
         return playerPerks;
     }
 
-    public void setPlayerPerks(String[] playerPerks) {
+    public void setPlayerPerks(ArrayList<Perk> playerPerks) {
         this.playerPerks = playerPerks;
+    }
+
+    public ArrayList<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(ArrayList<Item> items) {
+        this.items = items;
+    }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "alchemyLevel=" + alchemyLevel +
+                ", playerPerks=" + playerPerks +
+                ", items=" + items +
+                '}';
     }
 }
