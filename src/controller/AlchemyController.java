@@ -6,6 +6,9 @@ import view.*;
 import java.util.*;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -16,23 +19,17 @@ import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
  * TO DO:
  *
  * SAR-18
- *  Load ingredients from JSON [done]
- *  Load effects from JSON [done]
- *  Load perks from JSON [done]
- *  Load item types from JSON [done]
- *  Test JSON imports [done]
- *  Is effect present in ingredient? [done]
- *  Get effect object from hash value [done]
- *  Get all ingredients with effect [done]
- *  Get all ingredients with same effects [done]
- *  Collate perk multipliers [done]
- *  Get enchantment multipliers [done]
- *  Benefactor/poisoner effect removal [done]
- *  Calculate base duration [done]
- *  Calculate base magnitude [done]
- *  Calculate base cost [done]
- *  Create potion
+ *  Create potion [done]
+ *  Ensure controller methods do not generate errors [done]
+ *  Error free does not mean bug free [done]
+ *
+ * SAR-28
  *  Write controller tests
+ *  This will confirm the lack of bugs
+ *
+ * SAR-21
+ *  User pane
+ *  Ingredient pane - addition of ingredient quantities
  *
  * @author matth
  */
@@ -155,7 +152,7 @@ public class AlchemyController {
     /**
      * Helper method to obtain effect from its in game hash value.
      *
-     * @param effectHash the effect's associated hashcode
+     * @param effectHash the effect's hash code
      * @return The effect with all its properties
      */
     private Effect getEffectByHash(String effectHash) {
@@ -181,45 +178,6 @@ public class AlchemyController {
         return null;
     }
 
-    /**
-     * Take an effect and find all ingredients with effect
-     *
-     * @param effectHash the effect's hash
-     * @param allIngredients the list of all ingredients
-     * @return An ArrayList with all the matching ingredients
-     */
-    private ArrayList<Ingredient> getIngredientsWithEffect(String effectHash, List<Ingredient> allIngredients) {
-        ArrayList<Ingredient> returnedIngredients = new ArrayList<>();
-
-        for (Ingredient i : allIngredients) {
-            if (Arrays.stream(i.getEffects()).anyMatch(effectHash::contains))
-                returnedIngredients.add(i);
-        }
-
-        return returnedIngredients;
-    }
-
-    /**
-     * Take an ingredient and find all ingredients that share at least one effect with it
-     *
-     * @param ingredient the ingredient we want common effects for
-     * @param allIngredients List of all ingredients
-     * @return the ingredients that have a commonality with the ingredient we want
-     */
-    private ArrayList<Ingredient> getAllCommonIngredients(Ingredient ingredient, List<Ingredient> allIngredients) {
-        String[] ingredientEffects = ingredient.getEffects();
-        ArrayList<Ingredient> returnedIngredients = new ArrayList<>();
-
-        for (Ingredient ing : allIngredients) {
-            for (String effect : ingredientEffects) {
-                if (Arrays.stream(ing.getEffects()).anyMatch(effect::contains))
-                    returnedIngredients.add(ing);
-            }
-        }
-
-        return returnedIngredients;
-    }
-
     private Perk getPerkFromHash(String perkHash) {
         for (Perk p : Objects.requireNonNull(allPerks)) {
             if (Objects.equals(perkHash, p.getHash())) {
@@ -243,7 +201,7 @@ public class AlchemyController {
      * @param player the player
      * @param effect the effect
      */
-    private double getPotionBaseMagnitude(Player player, Effect effect) {
+    private double getPotionEffectBaseMagnitude(Player player, Effect effect) {
         List<Perk> playerPerks = player.getPlayerPerks();
         dropBenefactorOrPoisoner(effect, playerPerks);
 
@@ -267,7 +225,7 @@ public class AlchemyController {
      * @param effect the effect
      * @return the potion's base duration
      */
-    private double getPotionBaseDuration(Player player, Effect effect) {
+    private double getPotionEffectBaseDuration(Player player, Effect effect) {
         List<Perk> playerPerks = player.getPlayerPerks();
         dropBenefactorOrPoisoner(effect, playerPerks);
 
@@ -288,17 +246,15 @@ public class AlchemyController {
     /**
      * Get the potion's base cost, following the obtaining of the magnitude and duration
      * @param effect The effect
-     * @param magnitude The potion's base magnitude
-     * @param duration The potion's base duration
      * @return The potion's base cost
      */
-    private double getPotionBaseCost(Effect effect, double magnitude, double duration) {
-        if (magnitude == 0) {
-            return Math.floor(effect.getBaseCost() * Math.max(Math.pow(duration / 10, 1.1), 1));
-        } else if (duration == 0) {
-            return Math.floor(effect.getBaseCost() * Math.pow(magnitude, 1.1));
+    private double getPotionEffectBaseCost(Effect effect) {
+        if (effect.getBaseMag() == 0) {
+            return Math.floor(effect.getBaseCost() * Math.max(Math.pow((double) effect.getBaseDur() / 10, 1.1), 1));
+        } else if (effect.getBaseDur() == 0) {
+            return Math.floor(effect.getBaseCost() * Math.pow(effect.getBaseMag(), 1.1));
         } else {
-            return Math.floor(effect.getBaseCost() * Math.max(Math.pow(magnitude, 1.1), 1) * Math.pow(duration / 10, 1.1));
+            return Math.floor(effect.getBaseCost() * Math.max(Math.pow(effect.getBaseMag(), 1.1), 1) * Math.pow((double) effect.getBaseDur() / 10, 1.1));
         }
     }
 
@@ -339,9 +295,168 @@ public class AlchemyController {
     }
 
     /**
+     * Key method that finds common effect hashes between ingredients
+     * @param ingredients the two or three ingredients
+     * @return hashset with the effects
+     */
+    private HashSet<Effect> getCommonEffects(ArrayList<Ingredient> ingredients) {
+        HashSet<Effect> effects = new HashSet<>();
+        ArrayList<String> allEffects = new ArrayList<>();
+
+        for (Ingredient ing : ingredients) {
+            allEffects.addAll(Arrays.asList(ing.getEffects()));
+        }
+
+        for (String eff : allEffects)
+            if (allEffects.lastIndexOf(eff) != allEffects.indexOf(eff)) {
+                // you have at least two ingredients with the effect
+                Effect effect = getEffectByHash(eff);
+                effects.add(effect);
+            }
+
+        return effects;
+    }
+
+    /**
+     * Take an ingredient and find all ingredients that share at least one effect with it
+     *
+     * @param ingredient the ingredient we want common effects for
+     * @param allIngredients List of all ingredients
+     * @return the ingredients that have a commonality with the ingredient we want
+     */
+    private ArrayList<Ingredient> getAllCommonIngredients(Ingredient ingredient, List<Ingredient> allIngredients) {
+        String[] ingredientEffects = ingredient.getEffects();
+        ArrayList<Ingredient> returnedIngredients = new ArrayList<>();
+
+        for (Ingredient ing : allIngredients) {
+            for (String effect : ingredientEffects) {
+                if (Arrays.stream(ing.getEffects()).anyMatch(effect::contains))
+                    returnedIngredients.add(ing);
+            }
+        }
+
+        return returnedIngredients;
+    }
+
+    /**
+     * Tasks:
+     *  Obtain effects from ingredients [done]
+     *  Change ingredients.json keys to effect hash codes [done]
+     *  Change model fields, getter setters etc to match database changes [done]
+     *  Multiplier changes to effects [done]
+     *  Sort by effect strength
+     *  Enchantments etc.
+     *  Use player fields to get final potion values
+     *  Make potion
+     *  Finish toString potion method
+     *
+     * @param player the player
+     * @param ingredients the ingredients
+     * @return potion
+     */
+    private Potion makePotion(Player player, ArrayList<Ingredient> ingredients) {
+        String header;
+
+        //get ingredients in common
+        HashSet<Effect> potionEffects = getCommonEffects(ingredients);
+
+        if (!potionEffects.isEmpty()) {
+
+            //multiply duration, strength and cost by multipliers
+            //instead of creating new effect, we must modify the existing one
+            for (Ingredient ingredient : ingredients) {
+                //if any have a magnitude effect
+                //find the matching pairs
+                if (ingredient.getMagnitudeEffect().isPresent()) {
+                    for (Map.Entry<String, Double> pair : ingredient.getMagnitudeEffect().get().entrySet()) {
+                        if (doesHashMatchEffect(potionEffects, pair)) {
+                            Effect effect = getEffectByHash(pair.getKey());
+                            if (effect != null) {
+                                effect.setBaseMag((int) (effect.getBaseMag() * pair.getValue()));
+                                potionEffects.remove(getEffectByHash(pair.getKey()));
+                                potionEffects.add(effect);
+                            }
+                        }
+                    }
+                }
+
+                if (ingredient.getMagnitudeValue().isPresent()) {
+                    //if any have a magnitude value
+                    //find the matching pairs
+                    for (Map.Entry<String, Double> pair : ingredient.getMagnitudeValue().get().entrySet()) {
+                        if (doesHashMatchEffect(potionEffects, pair)) {
+                            Effect effect = getEffectByHash(pair.getKey());
+                            if (effect != null) {
+                                effect.setBaseCost((int) (effect.getBaseCost() * pair.getValue()));
+                                potionEffects.remove(getEffectByHash(pair.getKey()));
+                                potionEffects.add(effect);
+                            }
+                        }
+                    }
+                }
+
+                if (ingredient.getMagnitudeTime().isPresent()) {
+                    //if any have a magnitude time
+                    //find the matching pairs
+                    for (Map.Entry<String, Double> pair : ingredient.getMagnitudeTime().get().entrySet()) {
+                        if (doesHashMatchEffect(potionEffects, pair)) {
+                            Effect effect = getEffectByHash(pair.getKey());
+                            if (effect != null) {
+                                effect.setBaseDur((int) (effect.getBaseDur() * pair.getValue()));
+                                potionEffects.remove(getEffectByHash(pair.getKey()));
+                                potionEffects.add(effect);
+                            }
+                        }
+                    }
+                }
+            }
+
+            //sort by effect intensity
+            if (durationVariantEffects(potionEffects))
+                potionEffects = potionEffects.stream().sorted(Comparator.comparingInt(Effect::getBaseDur).reversed()).collect(Collectors.toCollection(LinkedHashSet::new));
+            else {
+                potionEffects = potionEffects.stream().sorted(Comparator.comparingInt(Effect::getBaseMag).reversed()).collect(Collectors.toCollection(LinkedHashSet::new));
+            }
+
+            String mainEffect = potionEffects.stream().findFirst().get().getEffect();
+
+            if (Objects.equals(mainEffect, "Helpful")) {
+                header = "Potion of ";
+            } else {
+                header = "Poison of ";
+            }
+
+            //purity modifications
+            if (player.getPlayerPerks().stream().anyMatch(perk -> Objects.equals(perk.getName(), "Purity")) && potionEffects.stream().findFirst().isPresent()) {
+                potionEffects = (HashSet<Effect>) potionEffects.stream().filter(effect -> Objects.equals(effect.getEffect(), mainEffect)).collect(Collectors.toSet());
+            }
+
+            String mainName = potionEffects.stream().findFirst().get().getName();
+
+            for (Effect effect : potionEffects) {
+                effect.setBaseMag((int) (effect.getBaseMag() * getPotionEffectBaseMagnitude(player, effect)));
+                effect.setBaseDur((int) (effect.getBaseDur() * getPotionEffectBaseDuration(player, effect)));
+                effect.setBaseCost(effect.getBaseCost() * getPotionEffectBaseCost(effect));
+            }
+
+            return new Potion(header + mainName, potionEffects);
+        }
+
+        return null;
+    }
+
+    private boolean durationVariantEffects(HashSet<Effect> effects) {
+        return effects.contains(getEffectByHash("0003EB3D")) || effects.contains(getEffectByHash("00073F30")) || effects.contains(getEffectByHash("00073F25")) || effects.contains(getEffectByHash("0003AC2D"));
+    }
+
+    private boolean doesHashMatchEffect(HashSet<Effect> potionEffects, Map.Entry<String, Double> pair) {
+        return potionEffects.stream().anyMatch(effect -> effect.getHash().equals(pair.getKey()));
+    }
+    /**
      * Submit player details and move to ingredients screen
      **/
     private class SubmitPlayerDetailsHandler implements EventHandler<ActionEvent> {
+
         public void handle(ActionEvent e) {
             model.setAlchemyLevel(Integer.parseInt(pdp.getAlchemyLevelTxt()));
         }
