@@ -1,21 +1,14 @@
 package model;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Potion {
     private String name;
-    private String[] effectStrings;
-    private int[] effectValues;
-    private int goldCost;
+    private HashSet<Effect> effects;
 
-    public Potion(String name, String[] effectStrings, int[] effectValues, int goldCost) {
+    public Potion(String name, HashSet<Effect> effects) {
         this.name = name;
-        this.effectStrings = effectStrings;
-        this.effectValues = effectValues;
-        this.goldCost = goldCost;
+        this.effects = effects;
     }
 
     public String getName() {
@@ -26,38 +19,12 @@ public class Potion {
         this.name = name;
     }
 
-    public String[] getEffectStrings() {
-        return effectStrings;
+    public HashSet<Effect> getEffects() {
+        return effects;
     }
 
-    public void setEffectStrings(String[] effectStrings) {
-        this.effectStrings = effectStrings;
-    }
-
-    public int[] getEffectValues() {
-        return effectValues;
-    }
-
-    public void setEffectValues(int[] effectValues) {
-        this.effectValues = effectValues;
-    }
-
-    public int getGoldCost() {
-        return goldCost;
-    }
-
-    public void setGoldCost(int goldCost) {
-        this.goldCost = goldCost;
-    }
-
-    @Override
-    public String toString() {
-        return "Potion{" +
-                "name='" + name + '\'' +
-                ", effectStrings=" + Arrays.toString(effectStrings) +
-                ", effectValues=" + Arrays.toString(effectValues) +
-                ", goldCost=" + goldCost +
-                '}';
+    public void setEffects(HashSet<Effect> effects) {
+        this.effects = effects;
     }
 
     public String toSkyrimPotionString() {

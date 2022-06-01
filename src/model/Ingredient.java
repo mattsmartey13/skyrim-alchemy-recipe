@@ -19,15 +19,15 @@ public class Ingredient implements Comparator<Ingredient>, Comparable<Ingredient
     @JsonProperty("effects")
     private String[] effects;
     @JsonProperty("magnitudeEffect")
-    private Optional<HashMap<Integer, Double>> magnitudeEffect;
+    private Optional<HashMap<String, Double>> magnitudeEffect;
 
     @JsonProperty("magnitudeTime")
-    private Optional<HashMap<Integer, Double>> magnitudeTime;
+    private Optional<HashMap<String, Double>> magnitudeTime;
     @JsonProperty("magnitudeValue")
-    private Optional<HashMap<Integer, Double>> magnitudeValue;
+    private Optional<HashMap<String, Double>> magnitudeValue;
 
     @ConstructorProperties({"name", "hash", "effects", "magnitudeEffect", "magnitudeTime", "magnitudeValue"})
-    public Ingredient(String name, String hash, String[] effects, Optional<HashMap<Integer, Double>> magnitudeEffect, Optional<HashMap<Integer, Double>> magnitudeTime, Optional<HashMap<Integer, Double>> magnitudeValue) {
+    public Ingredient(String name, String hash, String[] effects, Optional<HashMap<String, Double>> magnitudeEffect, Optional<HashMap<String, Double>> magnitudeTime, Optional<HashMap<String, Double>> magnitudeValue) {
         this.name = name;
         this.hash = hash;
         this.effects = effects;
@@ -67,32 +67,32 @@ public class Ingredient implements Comparator<Ingredient>, Comparable<Ingredient
     }
 
     @JsonGetter("magnitudeEffect")
-    public Optional<HashMap<Integer, Double>> getMagnitudeEffect() {
+    public Optional<HashMap<String, Double>> getMagnitudeEffect() {
         return magnitudeEffect;
     }
 
     @JsonSetter("magnitudeEffect")
-    public void setMagnitudeEffect(Optional<HashMap<Integer, Double>> magnitudeEffect) {
+    public void setMagnitudeEffect(Optional<HashMap<String, Double>> magnitudeEffect) {
         this.magnitudeEffect = magnitudeEffect;
     }
 
     @JsonGetter("magnitudeTime")
-    public Optional<HashMap<Integer, Double>> getMagnitudeTime() {
+    public Optional<HashMap<String, Double>> getMagnitudeTime() {
         return magnitudeTime;
     }
 
     @JsonSetter("magnitudeTime")
-    public void setMagnitudeTime(Optional<HashMap<Integer, Double>> magnitudeTime) {
+    public void setMagnitudeTime(Optional<HashMap<String, Double>> magnitudeTime) {
         this.magnitudeTime = magnitudeTime;
     }
 
     @JsonGetter("magnitudeValue")
-    public Optional<HashMap<Integer, Double>> getMagnitudeValue() {
+    public Optional<HashMap<String, Double>> getMagnitudeValue() {
         return magnitudeValue;
     }
 
     @JsonSetter("magnitudeValue")
-    public void setMagnitudeValue(Optional<HashMap<Integer, Double>> magnitudeValue) {
+    public void setMagnitudeValue(Optional<HashMap<String, Double>> magnitudeValue) {
         this.magnitudeValue = magnitudeValue;
     }
 

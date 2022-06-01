@@ -7,7 +7,8 @@
     "baseMag": 5,
     "baseDur": 0,
     "goldLvl100": 21,
-    "style": "Physical"
+    "style": "Physical",
+    "description": "Cure all diseases."
   },
   {
     "name": "Damage Health",
@@ -17,7 +18,8 @@
     "baseMag": 2,
     "baseDur": 1,
     "goldLvl100": 3,
-    "style": "Stats"
+    "style": "Stats",
+    "description": "Causes <mag> points of poison damage."
   },
   {
     "name": "Damage Magicka",
@@ -27,7 +29,8 @@
     "baseMag": 3,
     "baseDur": 0,
     "goldLvl100": 52,
-    "style": "Stats"
+    "style": "Stats",
+    "description": "Drains the target's Magicka by <mag> points."
   },
   {
     "name": "Damage Magicka Regen",
@@ -37,7 +40,8 @@
     "baseMag": 100,
     "baseDur": 5,
     "goldLvl100": 265,
-    "style": "Stats"
+    "style": "Stats",
+    "description": "Decrease the target's Magicka regeneration by <mag>% for <dur> seconds."
   },
   {
     "name": "Damage Stamina",
@@ -47,7 +51,8 @@
     "baseMag": 3,
     "baseDur": 0,
     "goldLvl100": 43,
-    "style": "Stats"
+    "style": "Stats",
+    "description": "Drain the target's Stamina by <mag> points."
   },
   {
     "name": "Damage Stamina Regen",
@@ -57,7 +62,8 @@
     "baseMag": 100,
     "baseDur": 5,
     "goldLvl100": 159,
-    "style": "Stats"
+    "style": "Stats",
+    "description": "Decrease the target's Stamina regeneration by <mag>% for <dur> seconds."
   },
   {
     "name": "Fear",
@@ -67,7 +73,8 @@
     "baseMag": 1,
     "baseDur": 20,
     "goldLvl100": 120,
-    "style": "Physical"
+    "style": "Physical",
+    "description": "Creatures and people up to level <mag> flee from combat for <dur> seconds."
   },
   {
     "name": "Fortify Alteration",
@@ -77,7 +84,8 @@
     "baseMag": 4,
     "baseDur": 60,
     "goldLvl100": 47,
-    "style": "Skills"
+    "style": "Skills",
+    "description": "Alteration spells last <mag>% longer for <dur> seconds."
   },
   {
     "name": "Fortify Barter",
@@ -87,7 +95,8 @@
     "baseMag": 1,
     "baseDur": 30,
     "goldLvl100": 48,
-    "style": "Skills"
+    "style": "Skills",
+    "description": "You haggle for <mag>% better prices for <dur> seconds."
   },
   {
     "name": "Fortify Block",
@@ -97,7 +106,8 @@
     "baseMag": 4,
     "baseDur": 60,
     "goldLvl100": 118,
-    "style": "Skills"
+    "style": "Skills",
+    "description": "Blocking absorbs <mag>% more damage for <dur> seconds."
   },
   {
     "name": "Fortify Carry Weight",
@@ -107,7 +117,8 @@
     "baseMag": 4,
     "baseDur": 300,
     "goldLvl100": 208,
-    "style": "Stats"
+    "style": "Stats",
+    "description": "Carrying capacity increases by <mag> for <dur> seconds."
   },
   {
     "name": "Fortify Conjuration",
@@ -117,7 +128,8 @@
     "baseMag": 5,
     "baseDur": 60,
     "goldLvl100": 75,
-    "style": "Skills"
+    "style": "Skills",
+    "description": "Conjurations spells last <mag>% longer for <dur> seconds."
   },
   {
     "name": "Fortify Destruction",
@@ -127,7 +139,8 @@
     "baseMag": 5,
     "baseDur": 60,
     "goldLvl100": 151,
-    "style": "Skills"
+    "style": "Skills",
+    "description": "Destruction spells are <mag>% stronger for <dur> seconds."
   },
   {
     "name": "Fortify Enchanting",
@@ -137,7 +150,8 @@
     "baseMag": 1,
     "baseDur": 30,
     "goldLvl100": 14,
-    "style": "Skills"
+    "style": "Skills",
+    "description": "For <dur> seconds, items are enchanted <mag>% stronger."
   },
   {
     "name": "Fortify Health",
@@ -147,7 +161,8 @@
     "baseMag": 4,
     "baseDur": 60,
     "goldLvl100": 82,
-    "style": "Skills"
+    "style": "Skills",
+    "description": "Health is increased by <mag> points for <dur> seconds."
   },
   {
     "name": "Fortify Heavy Armor",
@@ -157,7 +172,8 @@
     "baseMag": 2,
     "baseDur": 60,
     "goldLvl100": 55,
-    "style": "Skills"
+    "style": "Skills",
+    "description": "Increase Heavy Armor skill by <mag> points for <dur> seconds."
   },
   {
     "name": "Fortify Illusion",
@@ -167,7 +183,8 @@
     "baseMag": 4,
     "baseDur": 60,
     "goldLvl100": 94,
-    "style": "Skills"
+    "style": "Skills",
+    "description": "Illusion spells are <mag>% stronger for <dur> seconds."
   },
   {
     "name": "Fortify Light Armor",
@@ -177,7 +194,8 @@
     "baseMag": 2,
     "baseDur": 60,
     "goldLvl100": 55,
-    "style": "Skills"
+    "style": "Skills",
+    "description": "Increases Light Armor skill by <mag> points for <dur> seconds."
   },
   {
     "name": "Fortify Lockpicking",
@@ -187,7 +205,8 @@
     "baseMag": 2,
     "baseDur": 30,
     "goldLvl100": 25,
-    "style": "Skills"
+    "style": "Skills",
+    "description": "Lockpicking is <mag>% easier for <dur> seconds."
   },
   {
     "name": "Fortify Magicka",
@@ -197,7 +216,8 @@
     "baseMag": 4,
     "baseDur": 60,
     "goldLvl100": 71,
-    "style": "Stats"
+    "style": "Stats",
+    "description": "Magicka is increased by <mag> points for <dur> seconds."
   },
   {
     "name": "Fortify Marksman",
@@ -207,7 +227,8 @@
     "baseMag": 4,
     "baseDur": 60,
     "goldLvl100": 118,
-    "style": "Skills"
+    "style": "Skills",
+    "description": "Bows do <mag>% more damage for <dur> seconds."
   },
   {
     "name": "Fortify One-Handed",
@@ -217,7 +238,8 @@
     "baseMag": 4,
     "baseDur": 60,
     "goldLvl100": 118,
-    "style": "Skills"
+    "style": "Skills",
+    "description": "One-handed weapons do <mag>% more damage for <dur> seconds."
   },
   {
     "name": "Fortify Pickpocket",
@@ -227,7 +249,8 @@
     "baseMag": 4,
     "baseDur": 60,
     "goldLvl100": 118,
-    "style": "Skills"
+    "style": "Skills",
+    "description": "Pickpocketing is <mag>% easier for <dur> seconds."
   },
   {
     "name": "Fortify Restoration",
@@ -237,7 +260,8 @@
     "baseMag": 4,
     "baseDur": 60,
     "goldLvl100": 118,
-    "style": "Skills"
+    "style": "Skills",
+    "description": "Restoration spells are <mag>% stronger for <dur> seconds."
   },
   {
     "name": "Fortify Smithing",
@@ -247,7 +271,8 @@
     "baseMag": 4,
     "baseDur": 30,
     "goldLvl100": 82,
-    "style": "Skills"
+    "style": "Skills",
+    "description": "For <dur> seconds, weapon and armor improving is <mag>% better."
   },
   {
     "name": "Fortify Sneak",
@@ -257,7 +282,8 @@
     "baseMag": 4,
     "baseDur": 60,
     "goldLvl100": 118,
-    "style": "Skills"
+    "style": "Skills",
+    "description": "You are <mag>% harder to detect for <dur> seconds."
   },
   {
     "name": "Fortify Stamina",
@@ -267,7 +293,8 @@
     "baseMag": 4,
     "baseDur": 60,
     "goldLvl100": 71,
-    "style": "Stats"
+    "style": "Stats",
+    "description": "Stamina is increased by <mag> points for <dur> seconds."
   },
   {
     "name": "Fortify Two-Handed",
@@ -277,7 +304,8 @@
     "baseMag": 4,
     "baseDur": 60,
     "goldLvl100": 118,
-    "style": "Skills"
+    "style": "Skills",
+    "description": "Two-handed weapons do <mag>% more damage for <dur> seconds."
   },
   {
     "name": "Frenzy",
@@ -287,7 +315,8 @@
     "baseMag": 1,
     "baseDur": 10,
     "goldLvl100": 107,
-    "style": "Physical"
+    "style": "Physical",
+    "description": "Creatures and people up to level <mag> will attack anything nearby for <dur> seconds."
   },
   {
     "name": "Invisibility",
@@ -297,7 +326,8 @@
     "baseMag": 0,
     "baseDur": 4,
     "goldLvl100": 261,
-    "style": "Physical"
+    "style": "Physical",
+    "description": "Invisibility for <dur> seconds."
   },
   {
     "name": "Lingering Damage Health",
@@ -307,7 +337,8 @@
     "baseMag": 1,
     "baseDur": 10,
     "goldLvl100": 86,
-    "style": "Stats"
+    "style": "Stats",
+    "description": "Causes <mag> points of poison damage for <dur> seconds."
   },
   {
     "name": "Lingering Damage Magicka",
@@ -317,7 +348,8 @@
     "baseMag": 1,
     "baseDur": 10,
     "goldLvl100": 71,
-    "style": "Stats"
+    "style": "Stats",
+    "description": "Drains the target's Magicka by <mag> points per second for <dur> seconds."
   },
   {
     "name": "Lingering Damage Stamina",
@@ -327,7 +359,8 @@
     "baseMag": 1,
     "baseDur": 10,
     "goldLvl100": 12,
-    "style": "Stats"
+    "style": "Stats",
+    "description": "Drain the target's Stamina by <mag> points per second for <dur> seconds."
   },
   {
     "name": "Paralysis",
@@ -337,7 +370,8 @@
     "baseMag": 0,
     "baseDur": 1,
     "goldLvl100": 285,
-    "style": "Physical"
+    "style": "Physical",
+    "description": "Target is paralyzed for <dur> seconds."
   },
   {
     "name": "Ravage Health",
@@ -347,7 +381,8 @@
     "baseMag": 2,
     "baseDur": 10,
     "goldLvl100": 6,
-    "style": "Stats"
+    "style": "Stats",
+    "description": "Causes <mag> points of concentrated poison damage."
   },
   {
     "name": "Ravage Magicka",
@@ -357,7 +392,8 @@
     "baseMag": 2,
     "baseDur": 10,
     "goldLvl100": 15,
-    "style": "Stats"
+    "style": "Stats",
+    "description": "Concentrated poison damages maximum magicka by <mag> points."
   },
   {
     "name": "Ravage Stamina",
@@ -367,7 +403,8 @@
     "baseMag": 2,
     "baseDur": 10,
     "goldLvl100": 24,
-    "style": "Stats"
+    "style": "Stats",
+    "description": "Concentrated poison damages maximum stamina by <mag> points."
   },
   {
     "name": "Regenerate Health",
@@ -377,7 +414,8 @@
     "baseMag": 5,
     "baseDur": 300,
     "goldLvl100": 177,
-    "style": "Stats"
+    "style": "Stats",
+    "description": "Health regenerates <mag>% faster for <dur> seconds."
   },
   {
     "name": "Regenerate Magicka",
@@ -387,7 +425,8 @@
     "baseMag": 5,
     "baseDur": 300,
     "goldLvl100": 177,
-    "style": "Stats"
+    "style": "Stats",
+    "description": "Magicka regenerates <mag>% faster for <dur> seconds."
   },
   {
     "name": "Regenerate Stamina",
@@ -397,7 +436,8 @@
     "baseMag": 5,
     "baseDur": 300,
     "goldLvl100": 177,
-    "style": "Stats"
+    "style": "Stats",
+    "description": "Stamina regenerates <mag>% faster for <dur> seconds."
   },
   {
     "name": "Resist Fire",
@@ -407,7 +447,8 @@
     "baseMag": 3,
     "baseDur": 60,
     "goldLvl100": 86,
-    "style": "Physical"
+    "style": "Physical",
+    "description": "Resist <mag>% of fire damage for <dur> seconds."
   },
   {
     "name": "Resist Frost",
@@ -417,7 +458,8 @@
     "baseMag": 3,
     "baseDur": 60,
     "goldLvl100": 86,
-    "style": "Physical"
+    "style": "Physical",
+    "description": "Resist <mag>% of frost damage for <dur> seconds."
   },
   {
     "name": "Resist Magic",
@@ -427,7 +469,8 @@
     "baseMag": 1,
     "baseDur": 60,
     "goldLvl100": 51,
-    "style": "Physical"
+    "style": "Physical",
+    "description": "Resist <mag>% of magic for <dur> seconds."
   },
   {
     "name": "Resist Poison",
@@ -437,7 +480,8 @@
     "baseMag": 4,
     "baseDur": 60,
     "goldLvl100": 118,
-    "style": "Physical"
+    "style": "Physical",
+    "description": "Resist <mag>% of poison for <dur> seconds."
   },
   {
     "name": "Resist Shock",
@@ -447,7 +491,8 @@
     "baseMag": 3,
     "baseDur": 60,
     "goldLvl100": 86,
-    "style": "Physical"
+    "style": "Physical",
+    "description": "Resist <mag>% of shock damage for <dur> seconds."
   },
   {
     "name": "Restore Health",
@@ -457,7 +502,8 @@
     "baseMag": 5,
     "baseDur": 0,
     "goldLvl100": 21,
-    "style": "Stats"
+    "style": "Stats",
+    "description": "Restore <mag> points of Health."
   },
   {
     "name": "Restore Magicka",
@@ -467,7 +513,8 @@
     "baseMag": 5,
     "baseDur": 0,
     "goldLvl100": 25,
-    "style": "Stats"
+    "style": "Stats",
+    "description": "Restore <mag> points of Magicka."
   },
   {
     "name": "Restore Stamina",
@@ -477,7 +524,8 @@
     "baseMag": 5,
     "baseDur": 0,
     "goldLvl100": 25,
-    "style": "Stats"
+    "style": "Stats",
+    "description": "Restore <mag> Stamina."
   },
   {
     "name": "Slow",
@@ -487,7 +535,8 @@
     "baseMag": 50,
     "baseDur": 5,
     "goldLvl100": 247,
-    "style": "Physical"
+    "style": "Physical",
+    "description": "Target moves at 50% speed for <dur> seconds."
   },
   {
     "name": "Waterbreathing",
@@ -497,7 +546,8 @@
     "baseMag": 0,
     "baseDur": 5,
     "goldLvl100": 100,
-    "style": "Physical"
+    "style": "Physical",
+    "description": "Can breathe underwater for <dur> seconds."
   },
   {
     "name": "Weakness to Fire",
@@ -507,7 +557,8 @@
     "baseMag": 3,
     "baseDur": 30,
     "goldLvl100": 48,
-    "style": "Physical"
+    "style": "Physical",
+    "description": "Target is <mag>% weaker to fire damage for <dur> seconds."
   },
   {
     "name": "Weakness to Frost",
@@ -517,7 +568,8 @@
     "baseMag": 3,
     "baseDur": 30,
     "goldLvl100": 40,
-    "style": "Physical"
+    "style": "Physical",
+    "description": "Target is <mag>% weaker to frost damage for <dur> seconds."
   },
   {
     "name": "Weakness to Magic",
@@ -527,7 +579,8 @@
     "baseMag": 2,
     "baseDur": 30,
     "goldLvl100": 51,
-    "style": "Physical"
+    "style": "Physical",
+    "description": "Target is <mag>% weaker to magic for <dur> seconds."
   },
   {
     "name": "Weakness to Poison",
@@ -537,7 +590,8 @@
     "baseMag": 2,
     "baseDur": 30,
     "goldLvl100": 51,
-    "style": "Physical"
+    "style": "Physical",
+    "description": "Target is <mag>% weaker to poison for <dur> seconds."
   },
   {
     "name": "Weakness to Shock",
@@ -547,6 +601,7 @@
     "baseMag": 3,
     "baseDur": 30,
     "goldLvl100": 56,
-    "style": "Physical"
+    "style": "Physical",
+    "description": "Target is <mag>% weaker to shock damage for <dur> seconds."
   }
 ]

@@ -26,8 +26,11 @@ public class Effect implements Comparator<Effect>, Comparable<Effect> {
     @JsonProperty("style")
     private String style;
 
-    @ConstructorProperties({"name", "hash", "effect", "baseCost", "baseMag", "baseDur", "goldLvl100", "style"})
-    public Effect(String name, String hash, String effect, double baseCost, int baseMag, int baseDur, int goldLvl100, String style) {
+    @JsonProperty("description")
+    private String description;
+
+    @ConstructorProperties({"name", "hash", "effect", "baseCost", "baseMag", "baseDur", "goldLvl100", "style", "description"})
+    public Effect(String name, String hash, String effect, double baseCost, int baseMag, int baseDur, int goldLvl100, String style, String description) {
         this.name = name;
         this.hash = hash;
         this.effect = effect;
@@ -36,6 +39,7 @@ public class Effect implements Comparator<Effect>, Comparable<Effect> {
         this.baseDur = baseDur;
         this.goldLvl100 = goldLvl100;
         this.style = style;
+        this.description = description;
     }
 
     @JsonGetter("name")
@@ -118,6 +122,16 @@ public class Effect implements Comparator<Effect>, Comparable<Effect> {
         this.baseCost = baseCost;
     }
 
+    @JsonGetter("description")
+    public String getDescription() {
+        return description;
+    }
+
+    @JsonSetter("description")
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public String toString() {
         return "Effect{" +
@@ -144,5 +158,4 @@ public class Effect implements Comparator<Effect>, Comparable<Effect> {
         }
         return 1;
     }
-
 }
