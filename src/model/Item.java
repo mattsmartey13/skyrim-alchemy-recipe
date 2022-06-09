@@ -14,6 +14,7 @@ public class Item {
     @ConstructorProperties({"name"})
     public Item(String name) {
         this.name = name;
+        this.alchemyBoost = 0;
     }
 
     @JsonGetter("name")

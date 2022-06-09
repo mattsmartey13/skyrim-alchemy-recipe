@@ -3,11 +3,12 @@ package controller;
 import model.*;
 import view.*;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.*;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -35,35 +36,40 @@ import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
  */
 public class AlchemyController {
 
-    private Player model;
-    private AlchemyRootPane rootPane;
-    private AlchemyMenuBar amb;
-    private IngredientEnchantmentPane ipep;
-    private PlayerDetailsPane pdp;
-    private ViewRecipePane vrp;
+    private final Player model;
+//    private AlchemyRootPane rootPane;
+//    private AlchemyMenuBar amb;
+//    private IngredientEnchantmentPane ipep;
+//    private PlayerDetailsPane pdp;
+//    private ViewRecipePane vrp;
 
-    private final List<Ingredient> allIngredients = getIngredientsFromData();
+    private final List<Ingredient> allIngredients;
 
-    private final List<Effect> allEffects = getEffectsFromData();
+    private final List<Effect> allEffects;
 
-    private final List<Perk> allPerks = getPerksFromData();
+    private final List<Perk> allPerks;
 
-    private final List<Item> allItems = getItemsFromData();
+    private final List<Item> allItems;
 
     /**
      * Constructor
      *
      * @param model the player with all their details
-     * @param rootPane the rootpane with all panes attached
+     *
      */
-    public AlchemyController(Player model, AlchemyRootPane rootPane) {
-        //initialise model and view fields
+    public AlchemyController(Player model) {
+        //initialise player entity and load database;
         this.model = model;
-        this.rootPane = rootPane;
-        this.amb = rootPane.getAlchemyMenuBar();
-        this.ipep = rootPane.getIngredientEnchantmentPane();
-        this.pdp = rootPane.getPlayerDetailsPane();
-        this.vrp = rootPane.getViewRecipePane();
+        allEffects = this.getEffectsFromData("src/data/effects.json");
+        allIngredients = this.getIngredientsFromData("src/data/ingredients.json");
+        allItems = this.getItemsFromData("src/data/items.json");
+        allPerks = this.getPerksFromData("src/data/perks.json");
+
+//        this.rootPane = rootPane;
+//        this.amb = rootPane.getAlchemyMenuBar();
+//        this.ipep = rootPane.getIngredientEnchantmentPane();
+//        this.pdp = rootPane.getPlayerDetailsPane();
+//        this.vrp = rootPane.getViewRecipePane();
 
         //populate comboboxes
 
@@ -75,10 +81,10 @@ public class AlchemyController {
      * Extract effects from JSON into a list of Effect objects
      * @return the list of effect objects
      */
-    private List<Effect> getEffectsFromData() {
+    protected List<Effect> getEffectsFromData(String path) {
         try {
             ObjectMapper mapper = new ObjectMapper();
-            return mapper.readValue(Paths.get("src/data/effects.json").toFile(), new TypeReference<>() {});
+            return mapper.readValue(Paths.get(path).toFile(), new TypeReference<>() {});
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -89,11 +95,11 @@ public class AlchemyController {
      * Extract ingredients from JSON into a list of Ingredient objects
      * @return the list of ingredient objects
      */
-    private List<Ingredient> getIngredientsFromData() {
+    protected List<Ingredient> getIngredientsFromData(String path) {
         try {
             ObjectMapper mapper = new ObjectMapper();
             mapper.registerModule(new Jdk8Module());
-            return mapper.readValue(Paths.get("src/data/ingredients.json").toFile(), new TypeReference<>() {});
+            return mapper.readValue(Paths.get(path).toFile(), new TypeReference<>() {});
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -104,10 +110,10 @@ public class AlchemyController {
      * Extract items from JSON into a list of Item objects
      * @return the list of item objects
      */
-    private List<Item> getItemsFromData() {
+    protected List<Item> getItemsFromData(String path) {
         try {
             ObjectMapper mapper = new ObjectMapper();
-            return mapper.readValue(Paths.get("src/data/items.json").toFile(), new TypeReference<>() {});
+            return mapper.readValue(Paths.get(path).toFile(), new TypeReference<>() {});
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -118,25 +124,25 @@ public class AlchemyController {
      * Extract perks from JSON into a list of Perk objects
      * @return the list of perk objects
      */
-    private List<Perk> getPerksFromData() {
+    protected List<Perk> getPerksFromData(String path) {
         try {
             ObjectMapper mapper = new ObjectMapper();
-            return mapper.readValue(Paths.get("src/data/perks.json").toFile(), new TypeReference<>() {});
+            return mapper.readValue(Paths.get(path).toFile(), new TypeReference<>() {});
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         return null;
     }
 
-    /**
-     * Helper method to attach event handlers
-     */
-    private void attachEventHandlers() {
-        this.amb.addExitEventHandler((e) -> {
-            System.exit(0);
-        });
-        this.pdp.addSubmitEventHandler(new SubmitPlayerDetailsHandler());
-    }
+//    /**
+//     * Helper method to attach event handlers
+//     */
+//    private void attachEventHandlers() {
+//        this.amb.addExitEventHandler((e) -> {
+//            System.exit(0);
+//        });
+//        this.pdp.addSubmitEventHandler(new SubmitPlayerDetailsHandler());
+//    }
 
     /**
      * Helper method to find if an ingredient possesses an effect.
@@ -144,7 +150,7 @@ public class AlchemyController {
      * @param ingredient The ingredient
      * @return boolean
      **/
-    private boolean isEffectPresent(Ingredient ingredient, String effectHash) {
+    protected boolean isEffectPresent(Ingredient ingredient, String effectHash) {
         String[] effects = ingredient.getEffects();
         return Arrays.stream(effects).anyMatch(effectHash::contains);
     }
@@ -155,8 +161,8 @@ public class AlchemyController {
      * @param effectHash the effect's hash code
      * @return The effect with all its properties
      */
-    private Effect getEffectByHash(String effectHash) {
-        for (Effect e : Objects.requireNonNull(allEffects)) {
+    protected Effect getEffectFromHash(String effectHash, List<Effect> effects) {
+        for (Effect e : Objects.requireNonNull(effects)) {
             if (Objects.equals(effectHash, e.getHash())) {
                 return e;
             }
@@ -169,8 +175,8 @@ public class AlchemyController {
      * @param ingredientHash the ingredient's hash code
      * @return the ingredient with all its properties
      */
-    public Ingredient getIngredientFromHash(String ingredientHash) {
-        for (Ingredient i : Objects.requireNonNull(allIngredients)) {
+    protected Ingredient getIngredientFromHash(String ingredientHash, List<Ingredient> ingredientList) {
+        for (Ingredient i : Objects.requireNonNull(ingredientList)) {
             if (Objects.equals(ingredientHash, i.getHash())) {
                 return i;
             }
@@ -178,8 +184,8 @@ public class AlchemyController {
         return null;
     }
 
-    private Perk getPerkFromHash(String perkHash) {
-        for (Perk p : Objects.requireNonNull(allPerks)) {
+    protected Perk getPerkFromHash(String perkHash, List<Perk> perkList) {
+        for (Perk p : Objects.requireNonNull(perkList)) {
             if (Objects.equals(perkHash, p.getHash())) {
                 return p;
             }
@@ -187,12 +193,16 @@ public class AlchemyController {
         return null;
     }
 
-    private ArrayList<Double> getPerkMultiplierList(Player player) {
-        ArrayList<Double> perkArrayList = new ArrayList<>();
-        for (Perk perk : player.getPlayerPerks()) {
-            perkArrayList.add(perk.getMultiplier());
+    protected List<Double> getPerkMultiplierList(List<Perk> playerPerkList) {
+        List<Double> perkList = new ArrayList<>();
+        for (Perk perk : playerPerkList) {
+            perkList.add(perk.getMultiplier());
         }
-        return perkArrayList;
+
+        if (!perkList.isEmpty())
+            return perkList;
+        else
+            return null;
     }
 
 
@@ -201,21 +211,27 @@ public class AlchemyController {
      * @param player the player
      * @param effect the effect
      */
-    private double getPotionEffectBaseMagnitude(Player player, Effect effect) {
+    protected double getPotionEffectBaseMagnitude(Player player, Effect effect) {
         List<Perk> playerPerks = player.getPlayerPerks();
-        dropBenefactorOrPoisoner(effect, playerPerks);
-
-        double result = getBaseDurAndMagValue(player) * effect.getBaseMag();
-        List<Double> perkMultipliers = new ArrayList<>(getPerkMultiplierList(player));
-
-        for (double perkMultiplier : perkMultipliers) {
-            result *= perkMultiplier;
+        if (!playerPerks.isEmpty()) {
+            dropBenefactorOrPoisoner(effect, playerPerks, allPerks);
+            dropPhysician(effect, playerPerks, allPerks);
         }
 
-        if (result < 0) {
-            return Math.round(result);
+        double result = getBaseDurAndMagValue(player) * effect.getBaseMag();
+
+        if (!playerPerks.isEmpty()) {
+            List<Double> perkMultipliers = new ArrayList<>(getPerkMultiplierList(playerPerks));
+
+            for (double perkMultiplier : perkMultipliers) {
+                result *= perkMultiplier;
+            }
+        }
+
+        if (result > 0) {
+            return round(result, 3);
         } else {
-            return Math.round(effect.getBaseMag());
+            return effect.getBaseMag();
         }
     }
 
@@ -225,21 +241,27 @@ public class AlchemyController {
      * @param effect the effect
      * @return the potion's base duration
      */
-    private double getPotionEffectBaseDuration(Player player, Effect effect) {
+    protected int getPotionEffectBaseDuration(Player player, Effect effect) {
         List<Perk> playerPerks = player.getPlayerPerks();
-        dropBenefactorOrPoisoner(effect, playerPerks);
-
-        double result = getBaseDurAndMagValue(player) * effect.getBaseDur();
-        List<Double> perkMultipliers = new ArrayList<>(getPerkMultiplierList(player));
-
-        for (double perkMultiplier : perkMultipliers) {
-            result *= perkMultiplier;
+        if (!playerPerks.isEmpty()) {
+            dropBenefactorOrPoisoner(effect, playerPerks, allPerks);
+            dropPhysician(effect, playerPerks, allPerks);
         }
 
-        if (result < 0) {
-            return Math.round(result);
+        double result = getBaseDurAndMagValue(player) * effect.getBaseDur();
+
+        if (!playerPerks.isEmpty()) {
+            List<Double> perkMultipliers = new ArrayList<>(getPerkMultiplierList(playerPerks));
+            for (double perkMultiplier : perkMultipliers) {
+                result *= perkMultiplier;
+            }
+        }
+
+
+        if (result > 0) {
+            return (int) round(result, 0);
         } else {
-            return Math.round(effect.getBaseDur());
+            return effect.getBaseDur();
         }
     }
 
@@ -248,7 +270,7 @@ public class AlchemyController {
      * @param effect The effect
      * @return The potion's base cost
      */
-    private double getPotionEffectBaseCost(Effect effect) {
+    protected double getPotionEffectBaseCost(Effect effect) {
         if (effect.getBaseMag() == 0) {
             return Math.floor(effect.getBaseCost() * Math.max(Math.pow((double) effect.getBaseDur() / 10, 1.1), 1));
         } else if (effect.getBaseDur() == 0) {
@@ -263,35 +285,53 @@ public class AlchemyController {
      * @param effect the effect
      * @param playerPerks the list of the player's perks
      */
-    private void dropBenefactorOrPoisoner(Effect effect, List<Perk> playerPerks) {
+    protected void dropBenefactorOrPoisoner(Effect effect, List<Perk> playerPerks, List<Perk> perksList) {
         if (Objects.equals(effect.getEffect(), "Helpful")) {
-            if (playerPerks.contains(getPerkFromHash("00058217"))) {
-                Objects.requireNonNull(playerPerks).remove(getPerkFromHash("00058217"));
+            if (playerPerks.contains(getPerkFromHash("00058217", perksList))) {
+                Objects.requireNonNull(playerPerks).remove(getPerkFromHash("00058217", perksList));
             }
         }
 
         if (Objects.equals(effect.getEffect(), "Harmful")) {
-            if (playerPerks.contains(getPerkFromHash("00058216"))) {
-                Objects.requireNonNull(playerPerks).remove(getPerkFromHash("00058216"));
+            if (playerPerks.contains(getPerkFromHash("00058216", perksList))) {
+                Objects.requireNonNull(playerPerks).remove(getPerkFromHash("00058216", perksList));
             }
         }
     }
 
-    private double getBaseDurAndMagValue(Player player) {
+    /**
+     * Drop physician perk if the effect does not restore health, stamina or magicka
+     * @param effect the effect
+     * @param playerPerks the player's perks
+     */
+    protected void dropPhysician(Effect effect, List<Perk> playerPerks, List<Perk> perksList) {
+        if (!Objects.equals(effect.getHash(), "0003EB15") && !Objects.equals(effect.getHash(), "0003EB17") && !Objects.equals(effect.getHash(), "0003EB16")) {
+            if (playerPerks.contains(getPerkFromHash("00058215", perksList))) {
+                Objects.requireNonNull(playerPerks).remove(getPerkFromHash("00058215", perksList));
+            }
+        }
+    }
+
+    /**
+     * Base method used as the precursor to duration and mag calculations, takes into account enchantments and the player's alchemy level
+     * @param player the player
+     * @return the base value to be multiplied against the effect's values
+     */
+    protected double getBaseDurAndMagValue(Player player) {
         int alchemyInitMulti = 4;
         double skillMultiplier = 1.5 * ((double) player.getAlchemyLevel() / 100);
 
         List<Integer> enchantments = new ArrayList<>();
         player.getItems().forEach(item -> enchantments.add(item.getAlchemyBoost()));
 
-        int sumOfEnchantments;
-        if (enchantments.stream().mapToInt(i -> i).sum() != 0) {
-            sumOfEnchantments = enchantments.stream().mapToInt(i -> i).sum();
+        double sumOfEnchantments;
+        if (enchantments.stream().mapToDouble(i -> i).sum() != 0) {
+            sumOfEnchantments = 1 + ((enchantments.stream().mapToDouble(i -> i).sum()) / 100);
         } else {
             sumOfEnchantments = 1;
         }
 
-        return alchemyInitMulti * skillMultiplier * sumOfEnchantments;
+        return round(alchemyInitMulti * skillMultiplier * sumOfEnchantments, 2);
     }
 
     /**
@@ -299,22 +339,25 @@ public class AlchemyController {
      * @param ingredients the two or three ingredients
      * @return hashset with the effects
      */
-    private HashSet<Effect> getCommonEffects(ArrayList<Ingredient> ingredients) {
-        HashSet<Effect> effects = new HashSet<>();
-        ArrayList<String> allEffects = new ArrayList<>();
+    protected HashSet<Effect> getCommonEffects(List<Ingredient> ingredients, List<Effect> effectList) {
+        HashSet<Effect> commonEffects = new HashSet<>();
+        List<String> effectsList = new ArrayList<>();
 
         for (Ingredient ing : ingredients) {
-            allEffects.addAll(Arrays.asList(ing.getEffects()));
+            effectsList.addAll(Arrays.asList(ing.getEffects()));
         }
 
-        for (String eff : allEffects)
-            if (allEffects.lastIndexOf(eff) != allEffects.indexOf(eff)) {
+        for (String eff : effectsList)
+            if (effectsList.lastIndexOf(eff) != effectsList.indexOf(eff)) {
                 // you have at least two ingredients with the effect
-                Effect effect = getEffectByHash(eff);
-                effects.add(effect);
+                Effect effect = getEffectFromHash(eff, effectList);
+                commonEffects.add(effect);
             }
 
-        return effects;
+        if (!commonEffects.isEmpty())
+            return commonEffects;
+        else
+            return null;
     }
 
     /**
@@ -324,18 +367,21 @@ public class AlchemyController {
      * @param allIngredients List of all ingredients
      * @return the ingredients that have a commonality with the ingredient we want
      */
-    private ArrayList<Ingredient> getAllCommonIngredients(Ingredient ingredient, List<Ingredient> allIngredients) {
-        String[] ingredientEffects = ingredient.getEffects();
+    protected List<Ingredient> getAllCommonIngredients(Ingredient ingredient, List<Ingredient> allIngredients) {
         ArrayList<Ingredient> returnedIngredients = new ArrayList<>();
 
-        for (Ingredient ing : allIngredients) {
-            for (String effect : ingredientEffects) {
-                if (Arrays.stream(ing.getEffects()).anyMatch(effect::contains))
+        for (String effect: ingredient.getEffects()) {
+            for (Ingredient ing : allIngredients) {
+                if (Arrays.stream(ing.getEffects()).anyMatch(effect::contains) && ingredient != ing) {
                     returnedIngredients.add(ing);
+                }
             }
         }
 
-        return returnedIngredients;
+        if (!returnedIngredients.isEmpty())
+            return returnedIngredients;
+        else
+            return null;
     }
 
     /**
@@ -344,21 +390,21 @@ public class AlchemyController {
      *  Change ingredients.json keys to effect hash codes [done]
      *  Change model fields, getter setters etc to match database changes [done]
      *  Multiplier changes to effects [done]
-     *  Sort by effect strength
-     *  Enchantments etc.
-     *  Use player fields to get final potion values
-     *  Make potion
-     *  Finish toString potion method
+     *  Sort by effect strength [done]
+     *  Enchantments etc. [done]
+     *  Use player fields to get final potion values [done]
+     *  Make potion [done]
+     *  Finish toString potion method [done]
      *
      * @param player the player
      * @param ingredients the ingredients
      * @return potion
      */
-    private Potion makePotion(Player player, ArrayList<Ingredient> ingredients) {
+    protected Potion makePotion(Player player, List<Ingredient> ingredients) {
         String header;
 
         //get ingredients in common
-        HashSet<Effect> potionEffects = getCommonEffects(ingredients);
+        HashSet<Effect> potionEffects = getCommonEffects(ingredients, allEffects);
 
         if (!potionEffects.isEmpty()) {
 
@@ -370,10 +416,10 @@ public class AlchemyController {
                 if (ingredient.getMagnitudeEffect().isPresent()) {
                     for (Map.Entry<String, Double> pair : ingredient.getMagnitudeEffect().get().entrySet()) {
                         if (doesHashMatchEffect(potionEffects, pair)) {
-                            Effect effect = getEffectByHash(pair.getKey());
+                            Effect effect = getEffectFromHash(pair.getKey(), allEffects);
                             if (effect != null) {
                                 effect.setBaseMag((int) (effect.getBaseMag() * pair.getValue()));
-                                potionEffects.remove(getEffectByHash(pair.getKey()));
+                                potionEffects.remove(getEffectFromHash(pair.getKey(), allEffects));
                                 potionEffects.add(effect);
                             }
                         }
@@ -385,10 +431,10 @@ public class AlchemyController {
                     //find the matching pairs
                     for (Map.Entry<String, Double> pair : ingredient.getMagnitudeValue().get().entrySet()) {
                         if (doesHashMatchEffect(potionEffects, pair)) {
-                            Effect effect = getEffectByHash(pair.getKey());
+                            Effect effect = getEffectFromHash(pair.getKey(), allEffects);
                             if (effect != null) {
                                 effect.setBaseCost((int) (effect.getBaseCost() * pair.getValue()));
-                                potionEffects.remove(getEffectByHash(pair.getKey()));
+                                potionEffects.remove(getEffectFromHash(pair.getKey(), allEffects));
                                 potionEffects.add(effect);
                             }
                         }
@@ -400,10 +446,10 @@ public class AlchemyController {
                     //find the matching pairs
                     for (Map.Entry<String, Double> pair : ingredient.getMagnitudeTime().get().entrySet()) {
                         if (doesHashMatchEffect(potionEffects, pair)) {
-                            Effect effect = getEffectByHash(pair.getKey());
+                            Effect effect = getEffectFromHash(pair.getKey(), allEffects);
                             if (effect != null) {
                                 effect.setBaseDur((int) (effect.getBaseDur() * pair.getValue()));
-                                potionEffects.remove(getEffectByHash(pair.getKey()));
+                                potionEffects.remove(getEffectFromHash(pair.getKey(), allEffects));
                                 potionEffects.add(effect);
                             }
                         }
@@ -412,9 +458,9 @@ public class AlchemyController {
             }
 
             //sort by effect intensity
-            if (durationVariantEffects(potionEffects))
+            if (durationVariantEffects(potionEffects)) {
                 potionEffects = potionEffects.stream().sorted(Comparator.comparingInt(Effect::getBaseDur).reversed()).collect(Collectors.toCollection(LinkedHashSet::new));
-            else {
+            } else {
                 potionEffects = potionEffects.stream().sorted(Comparator.comparingInt(Effect::getBaseMag).reversed()).collect(Collectors.toCollection(LinkedHashSet::new));
             }
 
@@ -434,9 +480,15 @@ public class AlchemyController {
             String mainName = potionEffects.stream().findFirst().get().getName();
 
             for (Effect effect : potionEffects) {
-                effect.setBaseMag((int) (effect.getBaseMag() * getPotionEffectBaseMagnitude(player, effect)));
-                effect.setBaseDur((int) (effect.getBaseDur() * getPotionEffectBaseDuration(player, effect)));
-                effect.setBaseCost(effect.getBaseCost() * getPotionEffectBaseCost(effect));
+                effect.setBaseMag((int) getPotionEffectBaseMagnitude(player, effect));
+                effect.setBaseDur(getPotionEffectBaseDuration(player, effect));
+                effect.setBaseCost(getPotionEffectBaseCost(effect));
+
+                if (effect.getDescription().contains("<mag>")) {
+                    effect.setDescription(effect.getDescription().replace("<mag>", Integer.toString(effect.getBaseMag())));
+                } else if (effect.getDescription().contains("<dur>")) {
+                    effect.setDescription(effect.getDescription().replace("<dur>", Integer.toString(effect.getBaseDur())));
+                }
             }
 
             return new Potion(header + mainName, potionEffects);
@@ -446,20 +498,29 @@ public class AlchemyController {
     }
 
     private boolean durationVariantEffects(HashSet<Effect> effects) {
-        return effects.contains(getEffectByHash("0003EB3D")) || effects.contains(getEffectByHash("00073F30")) || effects.contains(getEffectByHash("00073F25")) || effects.contains(getEffectByHash("0003AC2D"));
+        return effects.contains(getEffectFromHash("0003EB3D", allEffects)) || effects.contains(getEffectFromHash("00073F30", allEffects)) || effects.contains(getEffectFromHash("00073F25", allEffects)) || effects.contains(getEffectFromHash("0003AC2D", allEffects));
     }
 
     private boolean doesHashMatchEffect(HashSet<Effect> potionEffects, Map.Entry<String, Double> pair) {
         return potionEffects.stream().anyMatch(effect -> effect.getHash().equals(pair.getKey()));
     }
-    /**
-     * Submit player details and move to ingredients screen
-     **/
-    private class SubmitPlayerDetailsHandler implements EventHandler<ActionEvent> {
 
-        public void handle(ActionEvent e) {
-            model.setAlchemyLevel(Integer.parseInt(pdp.getAlchemyLevelTxt()));
-        }
+    private static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        BigDecimal bd = new BigDecimal(Double.toString(value));
+        bd = bd.setScale(places, RoundingMode.CEILING);
+        return bd.doubleValue();
     }
+
+//    /**
+//     * Submit player details and move to ingredients screen
+//     **/
+//    private class SubmitPlayerDetailsHandler implements EventHandler<ActionEvent> {
+//
+//        public void handle(ActionEvent e) {
+//            model.setAlchemyLevel(Integer.parseInt(pdp.getAlchemyLevelTxt()));
+//        }
+//    }
 
 }

@@ -15,16 +15,6 @@
     "multiplier": 1.6
   },
   {
-    "name": "Alchemist 4",
-    "hash": "000c07cc",
-    "multiplier": 1.8
-  },
-  {
-    "name": "Alchemist 5",
-    "hash": "000c07cd",
-    "multiplier": 2.0
-  },
-  {
     "name": "Physician",
     "hash": "00058215",
     "multiplier": 1.25
@@ -38,15 +28,5 @@
     "name": "Poisoner",
     "hash": "00058217",
     "multiplier": 1.25
-  },
-  {
-    "name": "Purity",
-    "hash": "00058217",
-    "multiplier": 1.0
-  },
-  {
-    "name": "Seeker of Shadows",
-    "hash": "xx034838",
-    "multiplier": 1.1
   }
 ]

@@ -1,12 +1,13 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Player {
 
     private int alchemyLevel;
-    private ArrayList<Perk> playerPerks;
-    private ArrayList<Item> items;
+    private List<Perk> playerPerks;
+    private List<Item> items;
 
     public Player() {
         alchemyLevel = 15;
@@ -22,19 +23,19 @@ public class Player {
         this.alchemyLevel = alchemyLevel;
     }
 
-    public ArrayList<Perk> getPlayerPerks() {
+    public List<Perk> getPlayerPerks() {
         return playerPerks;
     }
 
-    public void setPlayerPerks(ArrayList<Perk> playerPerks) {
+    public void setPlayerPerks(List<Perk> playerPerks) {
         this.playerPerks = playerPerks;
     }
 
-    public ArrayList<Item> getItems() {
+    public List<Item> getItems() {
         return items;
     }
 
-    public void setItems(ArrayList<Item> items) {
+    public void setItems(List<Item> items) {
         this.items = items;
     }
 

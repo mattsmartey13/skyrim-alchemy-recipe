@@ -1,0 +1,58 @@
+[
+  {
+    "name": "Ash Creep Cluster",
+    "hash": "xx01cd74",
+    "effects": [
+      "0003A2C6",
+      "0003EB3D",
+      "0003EAEA",
+      "0003EB26"
+    ]
+  },
+  {
+    "name": "Ash Hopper Jelly",
+    "hash": "xx01cd71",
+    "effects": [
+      "0003EB15",
+      "0003EB1F",
+      "0003EAEC",
+      "0003AC2E"
+    ]
+  },
+  {
+    "name": "Ashen Grass Pod",
+    "hash": "xx016e26",
+    "effects": [
+      "0003EAEA",
+      "00073F2F",
+      "0003EB21",
+      "0003EB22"
+    ],
+    "magnitudeEffect": {
+      "0003EAEA": 1.33
+    },
+    "magnitudeValue": {
+      "0003EAEA": 1.36
+    }
+  },
+  {
+    "name": "Butterfly Wing",
+    "hash": "000727e0",
+    "effects": [
+      "0003EB15",
+      "0003EB23",
+      "0010DE5E",
+      "0003A2B6"
+    ]
+  },
+  {
+    "name": "Chaurus Eggs",
+    "hash": "0003ad56",
+    "effects": [
+      "00090042",
+      "0003EAF9",
+      "0003A2B6",
+      "0003EB3D"
+    ]
+  }
+]

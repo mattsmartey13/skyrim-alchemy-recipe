@@ -1,0 +1,79 @@
+[
+  {
+    "name": "Cure Disease",
+    "hash": "000AE722",
+    "effect": "Helpful",
+    "baseCost": 0.5,
+    "baseMag": 5,
+    "baseDur": 0,
+    "goldLvl100": 21,
+    "style": "Physical",
+    "description": "Cure all diseases."
+  },
+  {
+    "name": "Damage Health",
+    "hash": "0003EB42",
+    "effect": "Harmful",
+    "baseCost": 3.0,
+    "baseMag": 2,
+    "baseDur": 1,
+    "goldLvl100": 3,
+    "style": "Stats",
+    "description": "Causes <mag> points of poison damage."
+  },
+  {
+    "name": "Damage Magicka",
+    "hash": "0003A2B6",
+    "effect": "Harmful",
+    "baseCost": 2.2,
+    "baseMag": 3,
+    "baseDur": 0,
+    "goldLvl100": 52,
+    "style": "Stats",
+    "description": "Drains the target's Magicka by <mag> points."
+  },
+  {
+    "name": "Invisibility",
+    "hash": "0003EB3D",
+    "effect": "Helpful",
+    "baseCost": 100.0,
+    "baseMag": 0,
+    "baseDur": 4,
+    "goldLvl100": 261,
+    "style": "Physical",
+    "description": "Invisibility for <dur> seconds."
+  },
+  {
+    "name": "Restore Health",
+    "hash": "0003EB15",
+    "effect": "Helpful",
+    "baseCost": 0.5,
+    "baseMag": 5,
+    "baseDur": 0,
+    "goldLvl100": 21,
+    "style": "Stats",
+    "description": "Restore <mag> points of Health."
+  },
+  {
+    "name": "Slow",
+    "hash": "00073F25",
+    "effect": "Harmful",
+    "baseCost": 1.0,
+    "baseMag": 50,
+    "baseDur": 5,
+    "goldLvl100": 247,
+    "style": "Physical",
+    "description": "Target moves at 50% speed for <dur> seconds."
+  },
+  {
+    "name": "Waterbreathing",
+    "hash": "0003AC2D",
+    "effect": "Helpful",
+    "baseCost": 30.0,
+    "baseMag": 0,
+    "baseDur": 5,
+    "goldLvl100": 100,
+    "style": "Physical",
+    "description": "Can breathe underwater for <dur> seconds."
+  }
+]

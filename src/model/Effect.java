@@ -138,11 +138,12 @@ public class Effect implements Comparator<Effect>, Comparable<Effect> {
                 "name='" + name + '\'' +
                 ", hash='" + hash + '\'' +
                 ", effect='" + effect + '\'' +
-                ", style='" + style + '\'' +
+                ", baseCost=" + baseCost +
                 ", baseMag=" + baseMag +
                 ", baseDur=" + baseDur +
                 ", goldLvl100=" + goldLvl100 +
-                ", baseCost=" + baseCost +
+                ", style='" + style + '\'' +
+                ", description='" + description + '\'' +
                 '}';
     }
 
