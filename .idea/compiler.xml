@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="skyrim-alchemy-recipe" options="--add-exports org.junit.platform.commons/org.junit.platform.commons.logging=skyrim.alchemy.recipe" />
+    </option>
+  </component>
+</project>

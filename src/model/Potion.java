@@ -27,7 +27,11 @@ public class Potion {
         this.effects = effects;
     }
 
-    public String toSkyrimPotionString() {
-        return "";
+    @Override
+    public String toString() {
+        return "Potion{" +
+                "name='" + name + '\'' +
+                ", effects=" + effects +
+                '}';
     }
 }

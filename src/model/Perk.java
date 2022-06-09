@@ -51,4 +51,13 @@ public class Perk {
     public void setMultiplier(double multiplier) {
         this.multiplier = multiplier;
     }
+
+    @Override
+    public String toString() {
+        return "Perk{" +
+                "name='" + name + '\'' +
+                ", hash='" + hash + '\'' +
+                ", multiplier=" + multiplier +
+                '}';
+    }
 }
