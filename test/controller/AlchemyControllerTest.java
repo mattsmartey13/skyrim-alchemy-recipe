@@ -7,6 +7,7 @@ import java.util.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.suite.api.Suite;
+import view.AlchemyRootPane;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,7 +16,8 @@ import static org.junit.jupiter.api.Assertions.*;
 public class AlchemyControllerTest {
 
     Player player = new Player();
-    AlchemyController alchemyController = new AlchemyController(player);
+    AlchemyRootPane view = new AlchemyRootPane();
+    AlchemyController alchemyController = new AlchemyController(player, view);
     List<Effect> allEffects = alchemyController.getEffectsFromData("test/data/effects.json");
     List<Ingredient> allIngredients = alchemyController.getIngredientsFromData("test/data/ingredients.json");
     List<Item> allItems = alchemyController.getItemsFromData("test/data/items.json");
