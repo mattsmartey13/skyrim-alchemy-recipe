@@ -8,10 +8,8 @@ import javafx.scene.layout.BorderPane;
 public class AlchemyRootPane extends BorderPane {
 
     private TabPane tp;
-    private PlayerDetailsPane pdp;
-    private IngredientEnchantmentPane ipep;
-    private ViewRecipePane vrp;
     private AlchemyMenuBar amb;
+    private PlayerDetailsPane pdp;
 
     public AlchemyRootPane() {
 
@@ -19,23 +17,18 @@ public class AlchemyRootPane extends BorderPane {
         TabPane tp = new TabPane();
         tp.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
 
-        //initiate our two panes where the action happens
+        //initiate our panes where the action happens
         pdp = new PlayerDetailsPane();
-        ipep = new IngredientEnchantmentPane();
-        vrp = new ViewRecipePane();
 
         //add the two panes to the parent
-        Tab t1 = new Tab("Add player details and perks", pdp);
-        Tab t2 = new Tab("Add ingredients and enchantments", ipep);
-        Tab t3 = new Tab("View created recipes", vrp);
+        Tab t1 = new Tab("Enter player details", pdp);;
 
-        tp.getTabs().addAll(t1, t2, t3);
+        tp.getTabs().addAll(t1);
 
         amb = new AlchemyMenuBar();
 
         this.setTop(amb);
         this.setCenter(tp);
-
     }
 
     public PlayerDetailsPane getPlayerDetailsPane() {
@@ -52,22 +45,6 @@ public class AlchemyRootPane extends BorderPane {
 
     public void setTp(TabPane tp) {
         this.tp = tp;
-    }
-
-    public IngredientEnchantmentPane getIngredientEnchantmentPane() {
-        return ipep;
-    }
-
-    public void setIngredientEnchantmentPane(IngredientEnchantmentPane ipep) {
-        this.ipep = ipep;
-    }
-
-    public ViewRecipePane getViewRecipePane() {
-        return vrp;
-    }
-
-    public void setViewRecipePane(ViewRecipePane vrp) {
-        this.vrp = vrp;
     }
 
     public AlchemyMenuBar getAlchemyMenuBar() {

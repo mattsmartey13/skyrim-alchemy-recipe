@@ -37,18 +37,15 @@ import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 public class AlchemyController {
 
     private final Player model;
-//    private AlchemyRootPane rootPane;
+    private AlchemyRootPane rootPane;
 //    private AlchemyMenuBar amb;
-//    private IngredientEnchantmentPane ipep;
-//    private PlayerDetailsPane pdp;
+    private PlayerDetailsPane pdp;
 //    private ViewRecipePane vrp;
 
     private final List<Ingredient> allIngredients;
-
     private final List<Effect> allEffects;
 
     private final List<Perk> allPerks;
-
     private final List<Item> allItems;
 
     /**
@@ -57,7 +54,7 @@ public class AlchemyController {
      * @param model the player with all their details
      *
      */
-    public AlchemyController(Player model) {
+    public AlchemyController(Player model, AlchemyRootPane rootPane) {
         //initialise player entity and load database;
         this.model = model;
         allEffects = this.getEffectsFromData("src/data/effects.json");
@@ -65,10 +62,9 @@ public class AlchemyController {
         allItems = this.getItemsFromData("src/data/items.json");
         allPerks = this.getPerksFromData("src/data/perks.json");
 
-//        this.rootPane = rootPane;
+        this.rootPane = rootPane;
+        this.pdp = rootPane.getPlayerDetailsPane();
 //        this.amb = rootPane.getAlchemyMenuBar();
-//        this.ipep = rootPane.getIngredientEnchantmentPane();
-//        this.pdp = rootPane.getPlayerDetailsPane();
 //        this.vrp = rootPane.getViewRecipePane();
 
         //populate comboboxes

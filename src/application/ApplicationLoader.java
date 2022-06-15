@@ -16,7 +16,7 @@ public class ApplicationLoader extends Application {
     public void init() {
         view = new AlchemyRootPane();
         Player model = new Player();
-        new AlchemyController(model);
+        new AlchemyController(model, view);
     }
 
     @Override
