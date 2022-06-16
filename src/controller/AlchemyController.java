@@ -38,9 +38,9 @@ public class AlchemyController {
 
     private final Player model;
     private AlchemyRootPane rootPane;
-//    private AlchemyMenuBar amb;
+    private AlchemyMenuBar amb;
     private PlayerDetailsPane pdp;
-//    private ViewRecipePane vrp;
+    private PotionGenerationPane pgp;
 
     private final List<Ingredient> allIngredients;
     private final List<Effect> allEffects;
@@ -64,8 +64,8 @@ public class AlchemyController {
 
         this.rootPane = rootPane;
         this.pdp = rootPane.getPlayerDetailsPane();
-//        this.amb = rootPane.getAlchemyMenuBar();
-//        this.vrp = rootPane.getViewRecipePane();
+        this.amb = rootPane.getAlchemyMenuBar();
+        this.pgp = rootPane.getPotionGenerationPane();
 
         //populate comboboxes
 
