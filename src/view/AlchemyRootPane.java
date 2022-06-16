@@ -11,6 +11,8 @@ public class AlchemyRootPane extends BorderPane {
     private AlchemyMenuBar amb;
     private PlayerDetailsPane pdp;
 
+    private PotionGenerationPane pgp;
+
     public AlchemyRootPane() {
 
         //initiate tabpane which oversees our functional panes
@@ -19,11 +21,13 @@ public class AlchemyRootPane extends BorderPane {
 
         //initiate our panes where the action happens
         pdp = new PlayerDetailsPane();
+        pgp = new PotionGenerationPane();
 
         //add the two panes to the parent
-        Tab t1 = new Tab("Enter player details", pdp);;
+        Tab t1 = new Tab("Enter player details", pdp);
+        Tab t2 = new Tab("Enter ingredients and make potions", pgp);
 
-        tp.getTabs().addAll(t1);
+        tp.getTabs().addAll(t1, t2);
 
         amb = new AlchemyMenuBar();
 
@@ -37,6 +41,22 @@ public class AlchemyRootPane extends BorderPane {
 
     public void setPlayerDetailsPane(PlayerDetailsPane pdp) {
         this.pdp = pdp;
+    }
+
+    public AlchemyMenuBar getAmb() {
+        return amb;
+    }
+
+    public void setAmb(AlchemyMenuBar amb) {
+        this.amb = amb;
+    }
+
+    public PotionGenerationPane getPotionGenerationPane() {
+        return pgp;
+    }
+
+    public void setPotionGenerationPane(PotionGenerationPane pgp) {
+        this.pgp = pgp;
     }
 
     public TabPane getTp() {
