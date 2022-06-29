@@ -55,7 +55,7 @@ public class AlchemyControllerTest {
     public void testGetIngredientFromData() {
         Ingredient realIngredient = allIngredients.get(0);
         Ingredient comparisonIngredient = new Ingredient("Ash Creep Cluster", "xx01cd74", new String[]{"0003A2C6", "0003EB3D", "0003EAEA", "0003EB26"}, null, null, null);
-        assertEquals(realIngredient.toString(), comparisonIngredient.toString());
+        assertEquals(realIngredient.actualToString(), comparisonIngredient.actualToString());
     }
 
     @Test
@@ -67,7 +67,7 @@ public class AlchemyControllerTest {
         hashTwo.put("0003EAEA", 1.36);
 
         Ingredient comparisonIngredient = new Ingredient("Ashen Grass Pod", "xx016e26", new String[]{"0003EAEA", "00073F2F", "0003EB21", "0003EB22"}, Optional.of(hashOne), null, Optional.of(hashTwo));
-        assertEquals(realIngredient.toString(), comparisonIngredient.toString());
+        assertEquals(realIngredient.actualToString(), comparisonIngredient.actualToString());
     }
 
     public void testGetAllIngredientsFromData() {

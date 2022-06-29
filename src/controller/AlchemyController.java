@@ -1,17 +1,21 @@
 package controller;
 
+import javafx.collections.transformation.SortedList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.RadioButton;
+import javafx.scene.input.MouseEvent;
 import model.*;
 import view.*;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.Collator;
 import java.util.*;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.stream.Collectors;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
@@ -19,18 +23,9 @@ import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 /**
  * TO DO:
  *
- * SAR-18
- *  Create potion [done]
- *  Ensure controller methods do not generate errors [done]
- *  Error free does not mean bug free [done]
- *
  * SAR-28
- *  Write controller tests
- *  This will confirm the lack of bugs
- *
- * SAR-21
- *  User pane
- *  Ingredient pane - addition of ingredient quantities
+ * Event handlers
+ * Construct potion from ingredients in GUI
  *
  * @author matth
  */
@@ -68,9 +63,10 @@ public class AlchemyController {
         this.pgp = rootPane.getPotionGenerationPane();
 
         //populate comboboxes
+        this.pgp.populateIngredientCombobox(allIngredients);
 
         //attach event handlers using private helper method
-        //this.attachEventHandlers();
+        this.attachEventHandlers();
     }
 
     /**
@@ -130,15 +126,22 @@ public class AlchemyController {
         return null;
     }
 
-//    /**
-//     * Helper method to attach event handlers
-//     */
-//    private void attachEventHandlers() {
-//        this.amb.addExitEventHandler((e) -> {
-//            System.exit(0);
-//        });
-//        this.pdp.addSubmitEventHandler(new SubmitPlayerDetailsHandler());
-//    }
+    /**
+     * Helper method to attach event handlers
+     */
+    private void attachEventHandlers() {
+        this.amb.addExitEventHandler((e) -> {
+            System.exit(0);
+        });
+
+        this.pdp.addSubmitEventHandler(new SubmitPlayerDetailsHandler());
+        this.pdp.addClearEventHandler(new ClearEventHandler());
+
+        this.pgp.addIngredientHandler(new AddIngredientToListHandler());
+        this.pgp.addAddAllIngredientsHandler(new AddAllIngredientsHandler());
+        this.pgp.removeIngredientHandler(new RemoveIngredientFromListHandler());
+        this.pgp.removeAllIngredientsHandler(new RemoveAllIngredientsHandler());
+    }
 
     /**
      * Helper method to find if an ingredient possesses an effect.
@@ -508,15 +511,133 @@ public class AlchemyController {
         bd = bd.setScale(places, RoundingMode.CEILING);
         return bd.doubleValue();
     }
+    /**
+     * Submit player details and move to ingredients screen
+     **/
+    private class SubmitPlayerDetailsHandler implements EventHandler<ActionEvent> {
+        public void handle(ActionEvent e) {
+            model.setAlchemyLevel(pdp.getAlchemyLevelTxt().getValue());
 
-//    /**
-//     * Submit player details and move to ingredients screen
-//     **/
-//    private class SubmitPlayerDetailsHandler implements EventHandler<ActionEvent> {
-//
-//        public void handle(ActionEvent e) {
-//            model.setAlchemyLevel(Integer.parseInt(pdp.getAlchemyLevelTxt()));
-//        }
-//    }
+            //items
+            if (rootPane.getPlayerDetailsPane().getHeadGearCheck().isSelected()) {
+                Item item = allItems.get(0);
+                item.setAlchemyBoost(pdp.getHeadgearTxt().getValue());
+                model.getItems().add(item);
+            }
 
+            if (rootPane.getPlayerDetailsPane().getGlovesCheck().isSelected()) {
+                Item item = allItems.get(1);
+                item.setAlchemyBoost(pdp.getGlovesTxt().getValue());
+                model.getItems().add(item);
+            }
+
+            if (rootPane.getPlayerDetailsPane().getRingCheck().isSelected()) {
+                Item item = allItems.get(2);
+                item.setAlchemyBoost(pdp.getGlovesTxt().getValue());
+                model.getItems().add(item);
+            }
+
+            if (rootPane.getPlayerDetailsPane().getFootwearCheck().isSelected()) {
+                Item item = allItems.get(3);
+                item.setAlchemyBoost(pdp.getFootwearTxt().getValue());
+                model.getItems().add(item);
+            }
+
+            //perks
+            List<Perk> perks = new ArrayList<>();
+            RadioButton selected = (RadioButton) rootPane.getPlayerDetailsPane().getToggleGroup().getSelectedToggle();
+            if (selected != null) {
+                Perk alchemist = null;
+                switch (selected.getText()) {
+                    case "Alchemist 1" -> alchemist = allPerks.get(0);
+                    case "Alchemist 2" -> alchemist = allPerks.get(1);
+                    case "Alchemist 3" -> alchemist = allPerks.get(2);
+                    case "Alchemist 4" -> alchemist = allPerks.get(3);
+                    case "Alchemist 5" -> alchemist = allPerks.get(4);
+                }
+                perks.add(alchemist);
+            }
+
+            if (rootPane.getPlayerDetailsPane().getPhysicianCheck().isSelected()) {
+                Perk physician = allPerks.get(5);
+                perks.add(physician);
+            }
+
+            if (rootPane.getPlayerDetailsPane().getBenefactorCheck().isSelected()) {
+                Perk benefactor = allPerks.get(6);
+                perks.add(benefactor);
+            }
+
+            if (rootPane.getPlayerDetailsPane().getPoisonerCheck().isSelected()) {
+                Perk poisoner = allPerks.get(7);
+                perks.add(poisoner);
+            }
+
+            if (rootPane.getPlayerDetailsPane().getPurityCheck().isSelected()) {
+                Perk purity = allPerks.get(8);
+                perks.add(purity);
+            }
+
+            if (rootPane.getPlayerDetailsPane().getSeekerCheck().isSelected()) {
+                Perk seeker = allPerks.get(9);
+                perks.add(seeker);
+            }
+
+            if (!perks.isEmpty()) {
+                model.setPlayerPerks(perks);
+            }
+
+            System.out.println(model);
+            rootPane.changeTab(1);
+        }
+    }
+    private class ClearEventHandler implements EventHandler<ActionEvent> {
+        @Override
+        public void handle(ActionEvent actionEvent) {
+            model.setPlayerPerks(null);
+            model.setItems(null);
+            model.setAlchemyLevel(15);
+
+            pdp.getToggleGroup().getSelectedToggle().setSelected(false);
+            pdp.getPhysicianCheck().setSelected(false);
+            pdp.getBenefactorCheck().setSelected(false);
+            pdp.getPoisonerCheck().setSelected(false);
+            pdp.getPurityCheck().setSelected(false);
+            pdp.getSeekerCheck().setSelected(false);
+        }
+    }
+
+    private class AddIngredientToListHandler implements EventHandler<ActionEvent> {
+        @Override
+        public void handle(ActionEvent actionEvent) {
+            Ingredient ingredient = rootPane.getPotionGenerationPane().getIngredientCombobox().getValue();
+            pgp.getIngredientListView().getItems().add(ingredient);
+        }
+    }
+
+    private class RemoveIngredientFromListHandler implements EventHandler<MouseEvent> {
+        @Override
+        public void handle(MouseEvent actionEvent) {
+            Ingredient ingredient = pgp.getIngredientListView().getSelectionModel().getSelectedItem();
+            pgp.getIngredientListView().getItems().remove(ingredient);
+            pgp.getIngredientCombobox().setItems(new SortedList<>(pgp.getIngredientObservableList(), Collator.getInstance()));
+        }
+    }
+
+    private class AddAllIngredientsHandler implements EventHandler<ActionEvent> {
+        @Override
+        public void handle(ActionEvent actionEvent) {
+                pgp.getIngredientListView().getItems().addAll(rootPane.getPotionGenerationPane().getIngredientCombobox().getItems());
+                pgp.getIngredientCombobox().getItems().removeAll(rootPane.getPotionGenerationPane().getIngredientCombobox().getItems());
+            }
+        }
+    private class RemoveAllIngredientsHandler implements EventHandler<ActionEvent> {
+        @Override
+        public void handle(ActionEvent actionEvent) {
+            pgp.getIngredientCombobox().getItems().addAll(rootPane.getPotionGenerationPane().getIngredientListView().getItems());
+            pgp.getIngredientListView().getItems().removeAll(rootPane.getPotionGenerationPane().getIngredientListView().getItems());
+        }
+    }
 }
+
+
