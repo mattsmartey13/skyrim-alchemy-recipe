@@ -16,7 +16,7 @@ public class AlchemyRootPane extends BorderPane {
     public AlchemyRootPane() {
 
         //initiate tabpane which oversees our functional panes
-        TabPane tp = new TabPane();
+        tp = new TabPane();
         tp.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
 
         //initiate our panes where the action happens

@@ -1,5 +1,6 @@
 package view;
 
+import controller.IngredientAutoComplete;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -10,16 +11,19 @@ import javafx.geometry.Pos;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Button;
+import java.util.List;
+
 import model.Ingredient;
 import model.Potion;
 
 public class PotionGenerationPane extends GridPane {
-    private ComboBox<Ingredient> findIngredientBox;
+    private ComboBox<Ingredient> ingredientCombobox;
     private ListView<Ingredient> ingredientListView;
     private ObservableList<Ingredient> ingredientObservableList;
     private ListView<Potion> potionListView;
@@ -33,10 +37,12 @@ public class PotionGenerationPane extends GridPane {
         this.setHgap(10);
         this.setVgap(40);
 
-        findIngredientBox = new ComboBox<>();
+        ingredientCombobox = new ComboBox<>();
+        ingredientCombobox.setEditable(true);
         ingredientListView = new ListView<>();
         ingredientObservableList = FXCollections.observableArrayList();
-        ingredientListView.getItems().addAll(ingredientObservableList);
+        new IngredientAutoComplete(ingredientCombobox);
+
         addAllIngredientsBtn = new Button("Add all ingredients");
         clearIngredientsBtn = new Button("Remove all ingredients");
 
@@ -61,12 +67,17 @@ public class PotionGenerationPane extends GridPane {
         this.getColumnConstraints().addAll(column0, column1);
     }
 
+    public void populateIngredientCombobox(List<Ingredient> ingredientList) {
+        ingredientCombobox.getItems().addAll(ingredientList);
+        ingredientCombobox.getSelectionModel().select(0);
+    }
+
     public VBox getIngredientListVBox() {
         VBox vBox = new VBox(10);
 
         HBox buttonBox = getIngredientButtonHBox();
 
-        vBox.getChildren().addAll(buttonBox, findIngredientBox, ingredientListView);
+        vBox.getChildren().addAll(buttonBox, ingredientCombobox, ingredientListView);
 
         return vBox;
     }
@@ -92,12 +103,34 @@ public class PotionGenerationPane extends GridPane {
         return vBox;
     }
 
-    public ComboBox<Ingredient> getFindIngredientBox() {
-        return findIngredientBox;
+    public Ingredient getSelectedIngredient() {
+        return ingredientCombobox.getSelectionModel().getSelectedItem();
     }
 
-    public void setFindIngredientBox(ComboBox<Ingredient> findIngredientBox) {
-        this.findIngredientBox = findIngredientBox;
+    public void addIngredientToList(Ingredient ingredient) {
+        ingredientListView.getSelectionModel().select(ingredient);
+        ingredientListView.getItems().add(ingredient);
+    }
+
+    public void removeIngredientFromList(Ingredient ingredient) {
+        ingredientListView.getSelectionModel().select(ingredient);
+        ingredientListView.getItems().remove(ingredient);
+    }
+
+    public void populateIngredientsToList(ObservableList<Ingredient> list) {
+        ingredientListView.getItems().addAll(list);
+    }
+
+    public void removeIngredientsFromList(ObservableList<Ingredient> list) {
+        ingredientListView.getItems().removeAll(list);
+    }
+
+    public ComboBox<Ingredient> getIngredientCombobox() {
+        return ingredientCombobox;
+    }
+
+    public void setIngredientCombobox(ComboBox<Ingredient> ingredientCombobox) {
+        this.ingredientCombobox = ingredientCombobox;
     }
 
     public ListView<Ingredient> getIngredientListView() {
@@ -153,8 +186,16 @@ public class PotionGenerationPane extends GridPane {
         addAllIngredientsBtn.setOnAction(addIngredientsHandler);
     }
 
-    public void clearIngredientsHandler(EventHandler<ActionEvent> clearIngredientsHandler) {
+    public void removeAllIngredientsHandler(EventHandler<ActionEvent> clearIngredientsHandler) {
         clearIngredientsBtn.setOnAction(clearIngredientsHandler);
+    }
+
+    public void addIngredientHandler(EventHandler<ActionEvent> addIngredientHandler) {
+        ingredientCombobox.setOnAction(addIngredientHandler);
+    }
+
+    public void removeIngredientHandler(EventHandler<MouseEvent> clearIngredientHandler) {
+        ingredientListView.setOnMouseClicked(clearIngredientHandler);
     }
 
 }

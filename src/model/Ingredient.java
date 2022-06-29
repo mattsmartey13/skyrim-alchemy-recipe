@@ -98,6 +98,10 @@ public class Ingredient implements Comparator<Ingredient>, Comparable<Ingredient
 
     @Override
     public String toString() {
+        return name;
+    }
+
+    public String actualToString() {
         return "Ingredient{" +
                 "name='" + name + '\'' +
                 ", hash='" + hash + '\'' +
