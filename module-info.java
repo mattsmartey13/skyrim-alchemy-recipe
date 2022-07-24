@@ -22,6 +22,8 @@ module skyrim.alchemy.recipe {
     requires org.junit.platform.engine;
     requires org.opentest4j;
 
+    requires org.paukov.combinatronics3;
+
     exports model;
 
     opens application;

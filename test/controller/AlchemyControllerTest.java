@@ -466,7 +466,7 @@ public class AlchemyControllerTest {
         potionEffects.add(invisibility);
 
         Potion potion = alchemyController.makePotion(player, ingredientsList);
-        Potion comparison = new Potion("Poison of Damage Magicka", potionEffects);
+        Potion comparison = new Potion("Poison of Damage Magicka", ingredientsList, potionEffects, (int) alchemyController.getPotionEffectBaseCost(invisibility));
 
         assertEquals(potion.toString(), comparison.toString());
     }

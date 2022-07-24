@@ -9,6 +9,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import model.Ingredient;
 
+/**
+ * AutoComplete class taking on a combobox as parameter. This will allow the user to search for an ingredient and the program to make suggestions.
+ */
 public class IngredientAutoComplete implements EventHandler<KeyEvent> {
     private ComboBox<Ingredient> comboBox;
     private final ObservableList<Ingredient> ingredients;

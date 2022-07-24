@@ -134,6 +134,10 @@ public class Effect implements Comparator<Effect>, Comparable<Effect> {
 
     @Override
     public String toString() {
+        return name;
+    }
+
+    public String actualToString() {
         return "Effect{" +
                 "name='" + name + '\'' +
                 ", hash='" + hash + '\'' +

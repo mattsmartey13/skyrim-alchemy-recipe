@@ -1,16 +1,17 @@
 package controller;
 
-import javafx.collections.transformation.SortedList;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.RadioButton;
 import javafx.scene.input.MouseEvent;
 import model.*;
+import org.paukov.combinatorics3.Generator;
+import org.paukov.combinatorics3.IGenerator;
 import view.*;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.text.Collator;
 import java.util.*;
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -22,10 +23,13 @@ import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 
 /**
  * TO DO:
- *
- * SAR-28
- * Event handlers
- * Construct potion from ingredients in GUI
+ * <p>
+ * SAR-31
+ * Make list of potions from ingredients [in progress]
+ * Change potion class to take ingredient parameters
+ * Sort by most expensive [done]
+ * Add to GUI [done]
+ * Potion details pane for debugging and functionality [in progress]
  *
  * @author matth
  */
@@ -47,7 +51,6 @@ public class AlchemyController {
      * Constructor
      *
      * @param model the player with all their details
-     *
      */
     public AlchemyController(Player model, AlchemyRootPane rootPane) {
         //initialise player entity and load database;
@@ -71,12 +74,14 @@ public class AlchemyController {
 
     /**
      * Extract effects from JSON into a list of Effect objects
+     *
      * @return the list of effect objects
      */
     protected List<Effect> getEffectsFromData(String path) {
         try {
             ObjectMapper mapper = new ObjectMapper();
-            return mapper.readValue(Paths.get(path).toFile(), new TypeReference<>() {});
+            return mapper.readValue(Paths.get(path).toFile(), new TypeReference<>() {
+            });
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -85,13 +90,15 @@ public class AlchemyController {
 
     /**
      * Extract ingredients from JSON into a list of Ingredient objects
+     *
      * @return the list of ingredient objects
      */
     protected List<Ingredient> getIngredientsFromData(String path) {
         try {
             ObjectMapper mapper = new ObjectMapper();
             mapper.registerModule(new Jdk8Module());
-            return mapper.readValue(Paths.get(path).toFile(), new TypeReference<>() {});
+            return mapper.readValue(Paths.get(path).toFile(), new TypeReference<>() {
+            });
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -100,12 +107,14 @@ public class AlchemyController {
 
     /**
      * Extract items from JSON into a list of Item objects
+     *
      * @return the list of item objects
      */
     protected List<Item> getItemsFromData(String path) {
         try {
             ObjectMapper mapper = new ObjectMapper();
-            return mapper.readValue(Paths.get(path).toFile(), new TypeReference<>() {});
+            return mapper.readValue(Paths.get(path).toFile(), new TypeReference<>() {
+            });
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -114,12 +123,14 @@ public class AlchemyController {
 
     /**
      * Extract perks from JSON into a list of Perk objects
+     *
      * @return the list of perk objects
      */
     protected List<Perk> getPerksFromData(String path) {
         try {
             ObjectMapper mapper = new ObjectMapper();
-            return mapper.readValue(Paths.get(path).toFile(), new TypeReference<>() {});
+            return mapper.readValue(Paths.get(path).toFile(), new TypeReference<>() {
+            });
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -171,6 +182,7 @@ public class AlchemyController {
 
     /**
      * Helper method to obtain ingredient from its in game hash value
+     *
      * @param ingredientHash the ingredient's hash code
      * @return the ingredient with all its properties
      */
@@ -207,6 +219,7 @@ public class AlchemyController {
 
     /**
      * Return base magnitude based on the player's parameters and the effect
+     *
      * @param player the player
      * @param effect the effect
      */
@@ -236,6 +249,7 @@ public class AlchemyController {
 
     /**
      * Return base duration based on the player's parameters and the effect
+     *
      * @param player the player
      * @param effect the effect
      * @return the potion's base duration
@@ -266,6 +280,7 @@ public class AlchemyController {
 
     /**
      * Get the potion's base cost, following the obtaining of the magnitude and duration
+     *
      * @param effect The effect
      * @return The potion's base cost
      */
@@ -281,7 +296,8 @@ public class AlchemyController {
 
     /**
      * Hardcoded method to drop Benefactor if creating a Poison, or drop Poisoner if creating a Potion
-     * @param effect the effect
+     *
+     * @param effect      the effect
      * @param playerPerks the list of the player's perks
      */
     protected void dropBenefactorOrPoisoner(Effect effect, List<Perk> playerPerks, List<Perk> perksList) {
@@ -300,7 +316,8 @@ public class AlchemyController {
 
     /**
      * Drop physician perk if the effect does not restore health, stamina or magicka
-     * @param effect the effect
+     *
+     * @param effect      the effect
      * @param playerPerks the player's perks
      */
     protected void dropPhysician(Effect effect, List<Perk> playerPerks, List<Perk> perksList) {
@@ -313,6 +330,7 @@ public class AlchemyController {
 
     /**
      * Base method used as the precursor to duration and mag calculations, takes into account enchantments and the player's alchemy level
+     *
      * @param player the player
      * @return the base value to be multiplied against the effect's values
      */
@@ -335,6 +353,7 @@ public class AlchemyController {
 
     /**
      * Key method that finds common effect hashes between ingredients
+     *
      * @param ingredients the two or three ingredients
      * @return hashset with the effects
      */
@@ -362,14 +381,14 @@ public class AlchemyController {
     /**
      * Take an ingredient and find all ingredients that share at least one effect with it
      *
-     * @param ingredient the ingredient we want common effects for
+     * @param ingredient     the ingredient we want common effects for
      * @param allIngredients List of all ingredients
      * @return the ingredients that have a commonality with the ingredient we want
      */
     protected List<Ingredient> getAllCommonIngredients(Ingredient ingredient, List<Ingredient> allIngredients) {
         ArrayList<Ingredient> returnedIngredients = new ArrayList<>();
 
-        for (String effect: ingredient.getEffects()) {
+        for (String effect : ingredient.getEffects()) {
             for (Ingredient ing : allIngredients) {
                 if (Arrays.stream(ing.getEffects()).anyMatch(effect::contains) && ingredient != ing) {
                     returnedIngredients.add(ing);
@@ -383,19 +402,28 @@ public class AlchemyController {
             return null;
     }
 
+    private boolean doIngredientsHaveCommonEffects(Ingredient ingredient1, Ingredient ingredient2, Ingredient ingredient3) {
+        for (String effectHash : ingredient1.getEffects()) {
+            if (Arrays.asList(ingredient2.getEffects()).contains(effectHash)) {
+                return true;
+            }
+
+            if (Arrays.asList(ingredient3.getEffects()).contains(effectHash)) {
+                return true;
+            }
+        }
+
+        for (String effectHash : ingredient2.getEffects()) {
+            if (ingredient3.getEffects() != null && Arrays.asList(ingredient3.getEffects()).contains(effectHash)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     /**
-     * Tasks:
-     *  Obtain effects from ingredients [done]
-     *  Change ingredients.json keys to effect hash codes [done]
-     *  Change model fields, getter setters etc to match database changes [done]
-     *  Multiplier changes to effects [done]
-     *  Sort by effect strength [done]
-     *  Enchantments etc. [done]
-     *  Use player fields to get final potion values [done]
-     *  Make potion [done]
-     *  Finish toString potion method [done]
-     *
-     * @param player the player
+     * @param player      the player
      * @param ingredients the ingredients
      * @return potion
      */
@@ -405,7 +433,7 @@ public class AlchemyController {
         //get ingredients in common
         HashSet<Effect> potionEffects = getCommonEffects(ingredients, allEffects);
 
-        if (!potionEffects.isEmpty()) {
+        if (!potionEffects.isEmpty() && (ingredients.size() > 1 && ingredients.size() < 4)) {
 
             //multiply duration, strength and cost by multipliers
             //instead of creating new effect, we must modify the existing one
@@ -478,10 +506,16 @@ public class AlchemyController {
 
             String mainName = potionEffects.stream().findFirst().get().getName();
 
+            int sumOfGold = 0;
+            System.out.println("Gold value = " + sumOfGold);
             for (Effect effect : potionEffects) {
                 effect.setBaseMag((int) getPotionEffectBaseMagnitude(player, effect));
                 effect.setBaseDur(getPotionEffectBaseDuration(player, effect));
                 effect.setBaseCost(getPotionEffectBaseCost(effect));
+                sumOfGold += effect.getBaseCost();
+                System.out.println("Gold value so far " + sumOfGold + " coins");
+                System.out.println("Mag effect: " + effect.getName() + ", " + effect.getBaseMag());
+                System.out.println("Dur effect: " + effect.getName() + ", " + effect.getBaseDur());
 
                 if (effect.getDescription().contains("<mag>")) {
                     effect.setDescription(effect.getDescription().replace("<mag>", Integer.toString(effect.getBaseMag())));
@@ -490,10 +524,77 @@ public class AlchemyController {
                 }
             }
 
-            return new Potion(header + mainName, potionEffects);
+            System.out.println("Gold value = " + sumOfGold + ", " + header + mainName);
+            return new Potion(header + mainName, ingredients, potionEffects, sumOfGold);
         }
 
         return null;
+    }
+
+    /**
+     * Takes the list of existing ingredients and generate a list of potions
+     * No combination can be repeated
+     * <p>
+     * TODO:
+     * Better mechanism for the foreach loop [done]
+     * Group ingredients via effects
+     * Valid combinationGenerator
+     * Make potions - potion mechanism is fine, but gold values add on everytime this is called
+     *
+     * @param ingredientList the list of ingredients
+     * @return the list of potions
+     */
+    private HashSet<Potion> getPotionsFromIngredientList(Player player, List<Ingredient> ingredientList) {
+        HashSet<Potion> potionList = new HashSet<>();
+        HashSet<Effect> effectList = getCommonEffects(ingredientList, allEffects);
+
+        if (effectList != null) {
+            for (Effect effect : effectList) {
+                HashSet<Ingredient> ingredientsEffectHashSet = getIngredientsFromEffect(effect, ingredientList);
+
+                if (ingredientsEffectHashSet != null) {
+                    IGenerator<List<Ingredient>> combinationGenerator = Generator.subset(ingredientsEffectHashSet).simple();
+                    List<List<Ingredient>> combinations = new ArrayList<>(combinationGenerator.stream().toList());
+                    combinations.removeIf(combo -> combo.size() < 2 || combo.size() > 3);
+
+                    List<List<Ingredient>> sortedIngredients = new ArrayList<>();
+
+                    for (List<Ingredient> ingredients : combinations) {
+                        List<Ingredient> sorted = ingredients.stream().sorted(Comparator.comparing(Ingredient::getName)).collect(Collectors.toList());
+                        sortedIngredients.add(sorted);
+                    }
+
+                    List<List<Ingredient>> candidates = sortedIngredients.stream().distinct().toList();
+
+                    for (List<Ingredient> ingredients : candidates) {
+                        System.out.println("Separated ingredients: " + ingredients);
+                        Potion potion = makePotion(player, ingredients);
+                        potionList.add(potion);
+                    }
+                }
+            }
+
+            potionList = potionList.stream().sorted(Comparator.comparing(Potion::getTotalGoldCost).reversed()).collect(Collectors.toCollection(LinkedHashSet::new));
+            System.out.println("Potions: " + potionList);
+            return potionList;
+        }
+
+        return null;
+    }
+
+    private HashSet<Ingredient> getIngredientsFromEffect(Effect effect, List<Ingredient> ingredients) {
+        HashSet<Ingredient> ingredientHashSet = new HashSet<>();
+
+        for (Ingredient ingredient : ingredients) {
+            if (Arrays.stream(ingredient.getEffects()).anyMatch(hash -> (hash.equals(effect.getHash())))) {
+                ingredientHashSet.add(ingredient);
+            }
+        }
+
+        if (ingredientHashSet.isEmpty())
+            return null;
+        else
+            return ingredientHashSet;
     }
 
     private boolean durationVariantEffects(HashSet<Effect> effects) {
@@ -511,6 +612,7 @@ public class AlchemyController {
         bd = bd.setScale(places, RoundingMode.CEILING);
         return bd.doubleValue();
     }
+
     /**
      * Submit player details and move to ingredients screen
      **/
@@ -587,10 +689,10 @@ public class AlchemyController {
                 model.setPlayerPerks(perks);
             }
 
-            System.out.println(model);
             rootPane.changeTab(1);
         }
     }
+
     private class ClearEventHandler implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent actionEvent) {
@@ -612,6 +714,11 @@ public class AlchemyController {
         public void handle(ActionEvent actionEvent) {
             Ingredient ingredient = rootPane.getPotionGenerationPane().getIngredientCombobox().getValue();
             pgp.getIngredientListView().getItems().add(ingredient);
+
+            if (getCommonEffects(pgp.getIngredientListView().getItems(), allEffects) != null) {
+                HashSet<Potion> potionHashSet = getPotionsFromIngredientList(model, rootPane.getPotionGenerationPane().getIngredientListView().getItems().stream().toList());
+                pgp.getPotionListView().setItems(FXCollections.observableArrayList(potionHashSet));
+            }
         }
     }
 
@@ -620,22 +727,35 @@ public class AlchemyController {
         public void handle(MouseEvent actionEvent) {
             Ingredient ingredient = pgp.getIngredientListView().getSelectionModel().getSelectedItem();
             pgp.getIngredientListView().getItems().remove(ingredient);
-            pgp.getIngredientCombobox().setItems(new SortedList<>(pgp.getIngredientObservableList(), Collator.getInstance()));
+
+            if (getCommonEffects(pgp.getIngredientListView().getItems(), allEffects) != null) {
+                HashSet<Potion> potionHashSet = getPotionsFromIngredientList(model, rootPane.getPotionGenerationPane().getIngredientListView().getItems().stream().toList());
+                pgp.getPotionListView().setItems(FXCollections.observableArrayList(potionHashSet));
+            }
         }
     }
 
     private class AddAllIngredientsHandler implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent actionEvent) {
-                pgp.getIngredientListView().getItems().addAll(rootPane.getPotionGenerationPane().getIngredientCombobox().getItems());
-                pgp.getIngredientCombobox().getItems().removeAll(rootPane.getPotionGenerationPane().getIngredientCombobox().getItems());
-            }
+            pgp.getIngredientListView().getItems().addAll(rootPane.getPotionGenerationPane().getIngredientCombobox().getItems());
+            HashSet<Potion> potionHashSet = getPotionsFromIngredientList(model, rootPane.getPotionGenerationPane().getIngredientListView().getItems().stream().toList());
+            pgp.getPotionListView().setItems(FXCollections.observableArrayList(potionHashSet));
         }
+    }
+
     private class RemoveAllIngredientsHandler implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent actionEvent) {
-            pgp.getIngredientCombobox().getItems().addAll(rootPane.getPotionGenerationPane().getIngredientListView().getItems());
             pgp.getIngredientListView().getItems().removeAll(rootPane.getPotionGenerationPane().getIngredientListView().getItems());
+            pgp.getPotionListView().setItems(null);
+        }
+    }
+
+    private class GetPotionDetailsHandler implements EventHandler<ActionEvent> {
+        @Override
+        public void handle(ActionEvent actionEvent) {
+
         }
     }
 }
