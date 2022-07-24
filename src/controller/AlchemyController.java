@@ -23,12 +23,7 @@ import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 
 /**
  * TO DO:
- * <p>
- * SAR-31
- * Make list of potions from ingredients [in progress]
- * Change potion class to take ingredient parameters
- * Sort by most expensive [done]
- * Add to GUI [done]
+ * Debug value, duration and magnitude of generated potions [todo]
  * Potion details pane for debugging and functionality [in progress]
  *
  * @author matth
@@ -507,15 +502,11 @@ public class AlchemyController {
             String mainName = potionEffects.stream().findFirst().get().getName();
 
             int sumOfGold = 0;
-            System.out.println("Gold value = " + sumOfGold);
             for (Effect effect : potionEffects) {
                 effect.setBaseMag((int) getPotionEffectBaseMagnitude(player, effect));
                 effect.setBaseDur(getPotionEffectBaseDuration(player, effect));
                 effect.setBaseCost(getPotionEffectBaseCost(effect));
                 sumOfGold += effect.getBaseCost();
-                System.out.println("Gold value so far " + sumOfGold + " coins");
-                System.out.println("Mag effect: " + effect.getName() + ", " + effect.getBaseMag());
-                System.out.println("Dur effect: " + effect.getName() + ", " + effect.getBaseDur());
 
                 if (effect.getDescription().contains("<mag>")) {
                     effect.setDescription(effect.getDescription().replace("<mag>", Integer.toString(effect.getBaseMag())));
@@ -524,7 +515,6 @@ public class AlchemyController {
                 }
             }
 
-            System.out.println("Gold value = " + sumOfGold + ", " + header + mainName);
             return new Potion(header + mainName, ingredients, potionEffects, sumOfGold);
         }
 
@@ -537,9 +527,9 @@ public class AlchemyController {
      * <p>
      * TODO:
      * Better mechanism for the foreach loop [done]
-     * Group ingredients via effects
-     * Valid combinationGenerator
-     * Make potions - potion mechanism is fine, but gold values add on everytime this is called
+     * Group ingredients via effects [done]
+     * Valid combinationGenerator [done]
+     * Make potions - potion mechanism is fine, but gold duration and mags multiply/concatenate for each method call???
      *
      * @param ingredientList the list of ingredients
      * @return the list of potions
@@ -567,7 +557,6 @@ public class AlchemyController {
                     List<List<Ingredient>> candidates = sortedIngredients.stream().distinct().toList();
 
                     for (List<Ingredient> ingredients : candidates) {
-                        System.out.println("Separated ingredients: " + ingredients);
                         Potion potion = makePotion(player, ingredients);
                         potionList.add(potion);
                     }
@@ -575,7 +564,6 @@ public class AlchemyController {
             }
 
             potionList = potionList.stream().sorted(Comparator.comparing(Potion::getTotalGoldCost).reversed()).collect(Collectors.toCollection(LinkedHashSet::new));
-            System.out.println("Potions: " + potionList);
             return potionList;
         }
 
