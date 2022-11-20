@@ -17,7 +17,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Button;
+
+import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Stream;
 
 import model.Ingredient;
 import model.Potion;
@@ -67,8 +71,8 @@ public class PotionGenerationPane extends GridPane {
         this.getColumnConstraints().addAll(column0, column1);
     }
 
-    public void populateIngredientCombobox(List<Ingredient> ingredientList) {
-        ingredientCombobox.getItems().addAll(ingredientList);
+    public void populateIngredientCombobox(HashSet<Ingredient> ingredientList) {
+        ingredientCombobox.getItems().addAll(ingredientList.stream().sorted(Comparator.comparing(Ingredient::getName)).toList());
         ingredientCombobox.getSelectionModel().select(0);
     }
 
